@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // function Person() {
+        //     var obj = {}
+        //     obj._proto_ = Person.prototype;
+        //     this = obj;
+        //     return this|| {}
+        // }
+        // 1、创建（或者说构造）一个新对象。
+        // 2、这个新对象会被执行[[Prototype]]连接。
+        // 3、这个新对象会绑定到函数调用的this。
+        // 4、如果函数没有返回其他对象，那么new表达式中的函数调用会自动返回这个新对象。
+        function newOperator() {
+            const Ctor = Array.prototype.shift.call(arguments);
+            if(typeof Ctor !== "function") {
+                throw new Error('Type Error')
+                // throw new TypeError('Type Error');
+            }
+            var obj = Object.create(Ctor.prototype);
+            var ret = Ctor.call(obj,arguments);
+            // 如果构造函数中返回的有对象 优先返回该对象 否则返回实例对象
+            return ret instanceof Object ? ret : obj;
+        }
+        newOperator(Ctor,...arg)
+    </script>
+</body>
+</html>
