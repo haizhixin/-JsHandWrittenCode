@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /**
+         * @param {number[]} nums1
+         * @param {number[]} nums2
+         * @return {number[]}
+         */
+        var nextGreaterElement = function(nums1, nums2) {
+            nums1.reverse();
+            console.log(nums1, "fdasf")
+            let ele = nums1.pop();
+            let arr = []
+            for (let i = 0; i < nums2.length; i++) {
+                let j = 0;
+
+                console.log(nums2[i] == ele)
+                if (nums2[i] == ele) {
+                    console.log(nums2[i], ele)
+                    j = i + 1;
+                    let flag = false;
+                    while (j < nums2.length) {
+                        if (nums2[j] > ele) {
+                            arr.push(nums2[j])
+                            ele = nums1.pop();
+                            flag = true;
+
+                            break
+                        }
+                        j++
+                    }
+                    if (!flag) {
+                        ele = nums1.pop();
+                        arr.push(-1)
+                    }
+                }
+                // i = 0
+                continue
+            }
+
+            return arr
+        };
+
+        var a = [4, 1, 2],
+            b = [1, 3, 4, 2]
+        console.log(nextGreaterElement(a, b))
+    </script>
+</body>
+
+</html>

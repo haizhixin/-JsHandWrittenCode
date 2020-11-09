@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 手写一个map函数
+        var a = [1, 2, 3]
+        Array.prototype.handMap = function(fn, context) {
+            if (typeof fn !== "function") {
+                throw new Error("错误")
+            }
+            var that = this;
+            let arr = []
+            for (let i = 0; i < that.length; i++) {
+                let result = fn.call(context, that[i], i, that)
+                arr.push(result)
+            }
+            return arr
+        }
+        const temp = a.handMap(function(item, index, arr) {
+            console.log(item, index, arr)
+            item = item * 2
+            return item
+        })
+        console.log(temp, "temp")
+    </script>
+</body>
+
+</html>

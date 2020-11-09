@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 手写一个filter函数
+
+        Array.prototype._filter = function(fn, context) {
+            if (typeof fn !== "function") {
+                throw Error("Error:fn is not a function!")
+            }
+            let arr = [];
+            for (let i = 0; i < this.length; i++) {
+                let result = fn.call(context, this[i], i, this)
+                if (result) {
+                    arr.push(this[i])
+                }
+            }
+            return arr
+        }
+    </script>
+</body>
+
+</html>

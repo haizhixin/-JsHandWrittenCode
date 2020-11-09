@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // https://mp.weixin.qq.com/s/-52h-gbNfk1WfLtrOgTI4A
+    </script>
+    <script>
+        
+       // 原型链继承
+       function SubperType() {
+           this.name = "Subper"
+       }
+       function SubType() {
+
+       }
+       SubType.prototype = new SubperType()
+       var sub = new SubType()
+       
+       // 盗用构造函数继承
+       function SubperType() {
+
+       }
+       function SubType() {
+           SubperType.call(this)
+       }
+       // 组合继承
+       function SubperType() {
+
+       }
+       function SubType() {
+           SubperType.call(this)
+       }
+
+       SubType.prototype = new SubperType()
+       var sub = new SubType()
+       // 原型式继承
+       function object(obj) {
+           function F() {
+           }
+           F.prototype =obj;
+           return new F()
+       }
+       // 另外object相当于 object.create()
+       // 寄生式继承
+       function anotherObject(obj) {
+           var clone = object(obj)
+           clone.sayName = function() {
+           // 在原型式继承的基础上增强对象
+           }
+           return clone
+       }
+      
+       // 寄生式组合继承
+       function SuperType() {
+
+       }
+
+       function SubType() {
+        SubperType.call(this)   
+       }
+       function inherit(SubperType,SubType) {
+           var prototype = object(SubperType.prototype)
+           prototype.constructor = SubType;
+           SubType.prototype = prototype;
+       }
+
+       var sub = new SubType()
+
+       // class继承
+
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 手写一个forEach函数 -->
+    <script>
+        Array.prototype._forEach = function(fn, context) {
+
+            if (typeof fn !== "function") {
+                throw new Error("fn is not a function")
+            }
+            for (let i = 0; i < this.length; i++) {
+                fn.call(context, this[i], i, this)
+            }
+        }
+    </script>
+</body>
+
+</html>

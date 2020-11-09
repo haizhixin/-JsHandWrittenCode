@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script> -->
+</head>
+<!-- //手写代码大全
+https://mp.weixin.qq.com/s/Qqh1H-2MUyVGoWjgOstQrg -->
+<body>
+    <script>
+        // 1.封装一个创建XHR的方法并兼容各个浏览器
+        function createXHR() {
+            let xhr;
+            if (window.XMLHttpRequest) {
+                xhr = new XMLHttpRequest();
+            } else {
+                xhr = new ActiveXObject("Microsoft.XMLHttp")
+            }
+            return xhr
+        }
+        // 2.生成一个对象
+        let xhr = createXHR();
+        // 3.监听readyState状态的变化
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4) {
+                if (xhr.status == 200 && xhr.status < 300 || xhr.status == 304) {
+                    console.log(xhr.responseText)
+                } else {
+                    console.log("请求失败")
+                }
+            }
+        }
+        // 4.启动一个异步请求
+        xhr.open("GET", url, true)
+        // 5.设置请求头信息
+        xhr.setRequestHeader("xxx", "xxxx")
+        // 6.发送请求
+        xhr.send(null)
+
+
+
+
+        // 也可以用load代替onreadychangestate
+        let xhr = createXHR();
+        xhr.load = function() {
+            if (xhr.status == 200 && xhr.status < 300 || xhr.status == "304") {
+                console.log(xhr.responseText)
+            } else {
+                console.log("请求失败")
+            }
+        }
+        xhr.open("POST", url, true)
+        xhr.setRequestHeader("xxx", "xxx")
+        xhr.send()
+    </script>
+
+</body>
+
+</html>

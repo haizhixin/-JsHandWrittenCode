@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const promise = new Promise((resolve,reject)=>{
+            if("异步操作成功") {
+               resolve()
+            } else {
+               reject()
+            }
+
+        })
+
+
+
+        const isFunction = fn => typeof fn === 'function';
+        const PENDING = "pending";//等待中
+        const FULFILLED = 'fulfilled';//已成功
+        const REJECTED = 'rejected';//已失败
+        class Promise {
+             //Promise接受一个执行器函数
+            constructor (exector) {
+              this.status = PENDING;
+              this.value = undefined;
+              this.reason = undefined;
+
+              // 存放已成功的处理回调函数
+              this.onFulfilledCallbacks = [];
+
+              // 存放已失败的处理回调函数
+              this.onRejectedCallbacks = [];
+
+              const resolve = (value) => {
+                  // resolve只有从pending状态才能变为成功状态
+                 if(this.status === PENDING) {
+                     this.status = FULFILLED
+                     //保存成功之后的值
+                     this.value = value
+
+                     this.onFulfilledCallbacks.forEach((fn)=>{
+                         fn(this.value)
+                     })
+                 }
+              }
+              const reject = (reason) =>{
+                  // reject只有从pending状态才能变为拒绝状态
+                  if(this.status === PENDING){
+                      this.status= REJECTED;
+                      this.reason = reason;
+                      this.onRejectedCallbacks.forEach(fn=>{
+                          fn(this.reason)
+                      })
+
+                  }
+              }
+              try {
+                exector(resolve,reject)
+              } catch(e) {
+                  //对立即执行器函数进行错误处理
+                  //执行器函数出错 把错误内容reject出去
+                reject(e)
+              }
+            }
+            // then方法可以接受两个回调函数作为参数。第一个回调函数是Promise对象的状态变为resolved时调用，第二个回调函数是Promise对象的状态变为rejected时调用。
+            then(onFulfilled,onRejected) {
+                onFulfilled = typeof onFulfilled === 'function' ? onFulfilled :value=>value;
+                onRejected = typeof onRejected === 'function' ? onRejected :reason=>{
+                    throw new Error(reason instanceof Error ?reason.message:reason)
+                }
+                //保存this
+                const self = this;
+
+                return new Promise((resolve,reject)=> {
+                    if(self.status === PENDING) {
+                       this.onFulfilledCallbacks.push(()=>{
+                          try {
+                              setTimeout(()=>{
+                                  const result = onFulfilled(self.value)
+                                  //有两种情况
+                                  // 一返回一个promise
+                                  //二返回一个非Promis值
+                                  result instanceof Promise ? result.then(resolve,reject):resolve(result)
+                              })
+
+                          } catch(e) {
+                              reject(e)
+                          }
+                       })
+
+                       this.onRejectedCallbacks.push(()=>{
+                           try{
+                               setTimeout(()=>{
+                                   const reason = onRejected(self.reason)
+                                   reason instanceof Promise ? reason.then(resolve,reject):reject(reason)
+                               })
+
+                           } catch(e) {
+                               reject(e)
+                           }
+                       })
+
+
+                    } else if(self.status === FULFILLED) {
+                        try {
+                            setTimeout(()=>{
+                               // 接受上一个Promise值 然后执行 返回then方法中的第一个函数参数的返回值
+                               const result = onFulfilled(self.value)
+                               // 如果这个值是Promise
+                               result instanceof Promise ? result.then(resolve,reject):resolve(result);
+                            })
+                        } catch(e) {
+                            reject(e)
+                        }
+                    } else if(self.status===REJECTED) {
+                        try {
+                            setTimeout(()=>{
+                              const result = onRejected(self.reason)
+                              
+                            })
+                        } catch(e) {
+                            reject(e)
+                        }
+
+                    }
+                })
+            }
+
+            catch(reject) {
+               return this.then(null,onRejected)
+            }
+            finally() {
+
+            }
+
+            static resolve(value) {
+                if(value instanceof Promise) {
+                    return value
+                } else {
+                    return new Promise((resolve)=>{
+                      resolve(value)
+                   })
+
+                }
+
+               
+            }
+            static reject(reason) {
+                return new Promise((resolve,reject)=>{
+                  reject(reason)
+                })
+            }
+            // https://mp.weixin.qq.com/s/-52h-gbNfk1WfLtrOgTI4A
+
+            static all() {
+
+            }
+            static race() {
+
+            }
+
+            static any() {
+
+            }
+            static allSettled() {
+
+            }
+
+
+            
+        }
+    </script>
+</body>
+</html>

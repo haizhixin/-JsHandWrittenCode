@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+    <script>
+      async function timeout(ms) {
+  await new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
+
+function sleep(interval) {
+  return new Promise(resolve => {
+    setTimeout(resolve, interval);
+  })
+}
+
+// 用法
+async function one2FiveInAsync() {
+  for(let i = 1; i <= 5; i++) {
+    await sleep(1000);
+    console.log(i);
+  }
+}
+
+one2FiveInAsync();
+
+
+    //  function getData() {
+    //    return new Promise(function(resolve,reject){
+    //     setTimeout(()=>{
+    //       resolve(1111)
+    //     },2000)
+
+    //    })
+      
+    //  }
+
+    // async function getPrice() {
+    //    await getData()
+     
+    //   //  console.log("123")
+    //   //  return '获取股票报价'
+    //  }
+     
+    // //  getPrice()
+    // const aa= getPrice()
+    //  console.log(aa)
+    //  aa.then(function(data){
+    //    console.log(data,"这个data到底是什么")
+    //  })
+
+    //  setTimeout(function(){
+    //    console.log(aa)
+    //    aa.then(function(data){
+    //    console.log(data,"这个data1到底是什么")
+    //  })
+    //  },3000)
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function StrToInt(Aarr, Barr, temp) {
+            temp = temp || [];
+            if (!Aarr.length || !Barr.length) {
+                return
+            }
+
+
+            let flag = false;
+            for (let i = 0; i < Aarr.length; i++) {
+                if (Aarr[i] == Barr[0]) {
+                    flag = true;
+                    let first = Barr.shift();
+                    temp.push(first);
+                    Aarr.splice(i)
+                    StrToInt(Aarr, Barr, temp)
+                }
+
+                if (!flag) {
+                    Barr.shift();
+                    StrToInt(Aarr, Barr, temp)
+                }
+            }
+            return temp
+        }
+
+
+
+        // [1, 5, 2, 0, 3, 4, 8, 7, 6, 9], [4, 5, 6]
+        // [1,5,2,0,3,4,8,7,6,9],[5,6,7]
+        // [1,5,2,0,3,4,8,7,6,9],[5,6,7]
+        // [1,6,2,0,3,4,8,7,5,9],[5,6,7]
+        console.log(StrToInt([1, 5, 2, 0, 3, 4, 8, 7, 6, 9], [4, 5, 6]))
+    </script>
+
+</body>
+
+</html>

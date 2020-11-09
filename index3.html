@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function sortArr(Aarr,Barr) {
+            let temp =[];
+            let lastIndex=Aarr.length-1;//最后一个索引值
+            for(let i = Barr.length-1;i >= 0;i--){
+               // 查找B中元素是否在A中存在
+               let itemIndex= Aarr.indexOf(Barr[i]);
+               if(itemIndex>-1) {
+                   if(itemIndex<=lastIndex) {
+                       temp.unshift(Barr[i]);
+                       lastIndex = itemIndex;
+                   }  else {
+                       if(Barr[i]<Aarr[lastIndex]&& itemIndex < Aarr.indexOf(Barr[i+2])  ) {
+                           temp.shift()
+                           temp.unshift(Barr[i])
+                           lastIndex = itemIndex;
+                       }
+                   }
+               }
+            }
+            return temp
+        }
+        console.log(sortArr([1,5,2,0,3,4,8,7,6,9],[4,5,6]))
+        console.log(sortArr([1,5,2,0,3,4,8,7,6,9],[5,6,7]))
+        console.log(sortArr([1,5,2,0,3,4,8,7,6,9],[5,6,7]))
+        console.log(sortArr([1,6,2,0,3,4,8,7,5,9],[5,6,7]))
+    </script>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 防抖函数:在规定的时间内只触发一次请求，防止误操作 
+        // 短时间内多次触发同一事件，只执行最后一次，或者只执行最开始的一次，中间的不执行。
+        // 使用场景 实时搜索 窗口调整
+        function debounce(await, fn) {
+            let timer = null;
+            // 立即执行 事件第一次触发就会执行，指定的时间内如果再有事件不执行了。
+            return () => {
+                const context = this;
+                const args = Array.prototype.slice.call(arguments);
+                if (!timer) {
+                    fn.apply(context, args)
+                }
+                timer = setTimeout(() => {
+                    timer = null
+                }, await)
+            }
+        }
+
+        // 延迟执行 事件最后一次触发后指定的时间内没有事件触发，才会执行，如果有重新延迟指定的时间
+        function debounce(await, fn) {
+            let timer = null;
+            return () => {
+                const context = this;
+                const args = Array.prototype.slice.call(arguments)
+                clearTimeout(timer)
+                timer = setTimeout(() => {
+                    fn.apply(context, args)
+                }, await)
+            }
+        }
+
+
+
+
+        // 立即执行
+        // function debounce(fn) {
+        //     let timeout;
+        //     return function() {
+        //         let context = this;
+        //         let args = arguments;
+
+        //         if (timeout) {
+        //             clearTimeout(timeout);
+        //         }
+
+        //         timeout = setTimeout(() => {
+        //             timeout = null;
+        //         }, 100)
+        //         if (!timeout) {
+        //             fn.apply(context, args)
+        //         }
+        //     }
+        // }
+        // function debounce(fn, immediate) {
+        //     let timeout;
+        //     return function() {
+        //         let context = this;
+        //         let args = arguments;
+
+        //         if (timeout) {
+        //             clearTimeout(timeout)
+        //         }
+        //         if (immediate) {
+        //             timeout = setTimeout(() => {
+        //                 timeout = null
+        //             }, 100)
+        //             if (!timeout) {
+        //                 fn.apply(context, args)
+        //             }
+        //         } else {
+        //             timeout = setTimeout(() => {
+        //                 fn.apply(context, args)
+        //             }, 100)
+        //         }
+        //     }
+        // }
+    </script>
+</body>
+
+</html>
