@@ -7,6 +7,8 @@
 </head>
 <body>
     <script>
+        // https://www.cnblogs.com/dennisj/p/12660388.html
+        // https://segmentfault.com/a/1190000018428848?utm_source=tag-newest
         const promise = new Promise((resolve,reject)=>{
             if("异步操作成功") {
                resolve()
@@ -15,9 +17,6 @@
             }
 
         })
-
-
-
         const isFunction = fn => typeof fn === 'function';
         const PENDING = "pending";//等待中
         const FULFILLED = 'fulfilled';//已成功
@@ -130,13 +129,18 @@
                 })
             }
 
-            catch(reject) {
+            catch(onRejected) {
                return this.then(null,onRejected)
             }
-            finally() {
+
+            finally(callBack) {
+                const P = this.constructor;
+                return this.then(
+                    value => P.resolve(callBack()).then(()=>value),
+                    reason=> P.resolve(callBack()).then(()=>  {throw reason})
+                )
 
             }
-
             static resolve(value) {
                 if(value instanceof Promise) {
                     return value
@@ -146,8 +150,6 @@
                    })
 
                 }
-
-               
             }
             static reject(reason) {
                 return new Promise((resolve,reject)=>{
@@ -155,12 +157,40 @@
                 })
             }
             // https://mp.weixin.qq.com/s/-52h-gbNfk1WfLtrOgTI4A
-
-            static all() {
-
+            static all(promises) {
+                return new Promise(function (resolve,reject) {
+                       let result =[]
+                       let index = 0;
+                       if(promises.length==0) {
+                           resolve(result)
+                       } else {
+                           for(let i =0;i<promises.length;i++) {
+                                Promise.resolve(promises[i]).then(function(data) {
+                                   result[i] = data;
+                                   index ++
+                                   if(index ===promises.length) {
+                                       resolve(result)
+                                   } 
+                                },function(err) {
+                                  return  reject(err)
+                                })
+                           }
+                       }
+                })
             }
-            static race() {
-
+            static race(promises) {
+                return new Promise(function(resolve,reject) {
+                    if(this.promises.length == 0) {
+                        return
+                    }
+                    for(let i =0;i<promises.length;i++) {
+                        Promise.resolve(promises[i]).then(function(data) {
+                            return resolve(data)
+                        },function(err) {
+                            return reject(err)
+                        })
+                    } 
+                })
             }
 
             static any() {
@@ -169,9 +199,6 @@
             static allSettled() {
 
             }
-
-
-            
         }
     </script>
 </body>
