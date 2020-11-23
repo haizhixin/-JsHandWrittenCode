@@ -7,8 +7,13 @@
 </head>
 <body>
     <script>
-      const p1 = Promise.race([]);
-      console.log(p1,"p")
+      const p1 = Promise.resolve(111);
+      const p2 = Promise.resolve(222);
+      const p3 = p2.then(function (params) {
+          return p1
+      })
+
+      console.log(p3===p1,p3,p1)
 
 
 

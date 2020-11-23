@@ -7,29 +7,18 @@
 </head>
 <body>
     <script>
-      async function timeout(ms) {
-  await new Promise((resolve) => {
-    setTimeout(resolve, ms);
-  });
-}
+      async function fn() {
+        const p = await 1;
+        console.log(p);
+        const p1 = await 2;
+        const p3 = await 3;
+        console.log(p3);
 
-function sleep(interval) {
-  return new Promise(resolve => {
-    setTimeout(resolve, interval);
-  })
-}
-
-// 用法
-async function one2FiveInAsync() {
-  for(let i = 1; i <= 5; i++) {
-    await sleep(1000);
-    console.log(i);
-  }
-}
-
-one2FiveInAsync();
-
-
+      } 
+      function name(params) {
+      
+        
+      }
     //  function getData() {
     //    return new Promise(function(resolve,reject){
     //     setTimeout(()=>{
