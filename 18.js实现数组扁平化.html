@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+   
+   <script>
+        // 原生js如何实现数组扁平化的
+
+        var arr = [ [1, 2, 2], [3, 4, 5, 5], [6, 7, 8, 9, [11, 12, [12, 13, [14] ] ] ], 10];
+       //一，利用reduce和contact
+      //  function flatten(arr) {
+      //     return arr.reduce((last,cur)=>{
+      //       return last.concat(Array.isArray(cur)?flatten(cur):cur)
+      //     },[])
+      //  }
+      //  var result  = flatten(arr)
+      //  console.log(result,"result")
+       // 二，利用some和contact
+        //  function flatten(arr) {
+        //    while(arr.some((item)=>Array.isArray(item))) {
+        //      arr = [].concat(...arr)
+        //    }
+
+        //    return arr
+        //  }
+        //  var result  = flatten(arr)
+        //  console.log(result,"result")
+         //三,利用递归
+         function flatten(arr) {
+           let result = [];
+           for(let i = 0;i<arr.length;i++) {
+              if(Array.isArray(arr[i])) {
+                result = result.concat(flatten(arr[i]))
+              } else {
+                result.push(arr[i])
+              }
+           }
+           return result
+         }
+         var result  = flatten(arr)
+         console.log(result,"result")
+
+        
+   </script>
+  
+</body>
+</html>
