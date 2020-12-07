@@ -7,6 +7,7 @@
 </head>
 <body>
     <script>
+        // 简易版
         Function.prototype.bind =function(context,...args) {
              if(typeof this !== "function") {
                  throw new TypeError('Type Error')
@@ -21,6 +22,33 @@
                  }
              }
         }
+
+        // 复杂版
+        Function.prototype.mybind = function (context) {
+            if(typeof this!== "function") {
+                throw new TypeError("Type Error")
+            }
+            var args = [].slice.call(arguments);
+            var fn = this;
+            var FNop = function () {
+
+            }
+            var fnbind = function () {
+                var arr = args.concat([].slice.call(arguments));
+
+                // 不用这一行 因为 apply方法如果 传入的是基本类型，会包装成对象
+                // context = context ? Object(context): window;
+                let result = fn.apply(this instanceof FNop?this:context,arr)
+                return result
+            }
+            Fn.prototype = this.prototype;
+            fnbind.prototype = new Fn()
+            // fnbind.prototype = this.prototype;
+            return fnbind
+        }
+
+
+        // 软绑定
        
 
 

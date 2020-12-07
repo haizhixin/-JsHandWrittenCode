@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <!-- 
+   对象浅拷贝模拟Object.assign()
+   注意点：接收一个参数
+          target 基本类型的处理 会用Object()包装成一个对象
+          null undefined的问题  不能复制
+          源对象 除了字符串用Object()包装 其他的都忽略
+          基本类型symbol的问题 // 模拟实现不支持symbol因为ES5根本没有symbol
+          不拷贝原型链上的属性
+   -->
+  <script>
+     if(typeof Object.assign2 != "function") {
+       Object.defineProperty(Object,assign2,{
+         value:function(target) {
+          // undefine == null 
+          if(target == null) {
+            throw new Error(" Cannot convert undefined or null to object")
+          }
+          var to = Object(target);
+          // assign 可以处理一个或者多个对象
+          for(var i = 1;i<arguments.length;i++) {
+            var nextSource = arguments[i];
+            if(nextSource != null) {// 忽略 null undefined
+              // 注意点 有的对象上并没有hasOwnProperty()方法
+              // 比如 Object.create(null)创建出来的对象原型为null
+              // 因此不能直接调用hasOwnProperty() 须借用
+              for(var key in nextSource) {
+                if(Object.prototype.hasOwnProperty.call(nextSource,key)){
+                  to[key] = nextSource[key]
+                }
+              }
+            }
+          }
+          return to;
+         },
+         enumerable:false,// 不可枚举
+         configurable:true,
+         writable:true,
+       })
+     }
+  </script>
+</body>
+</html>

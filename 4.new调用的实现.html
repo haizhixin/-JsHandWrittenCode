@@ -29,6 +29,35 @@
             return ret instanceof Object ? ret : obj;
         }
         newOperator(Ctor,...arg)
+
+
+
+
+
+
+
+
+    function objectCreate() {
+       var Ctor = [].shift.shift(arguments)
+       if(typeof Ctor !== "function") {
+           throw newTypeError("Type Error")
+       }
+       
+        // var obj = {};
+        // obj._proto_ = Ctor.prototype;
+        // 创建一个空对象并关联到函数的原型
+        var obj = Object.create(Ctor.prototype)
+        // 绑定this 继承构造函数上的属性
+        var ret = Ctor.apply(obj,arguments)
+        return ret instanceof Object ? ret : obj
+    }
+
+     
+
+
+
+
+
     </script>
 </body>
 </html>

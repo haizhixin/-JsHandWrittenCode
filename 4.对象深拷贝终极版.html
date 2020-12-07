@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <!-- 深拷贝 == 浅拷贝+递归
+    一、简单实现
+    二、拷贝数组
+    三、处理循环引用 JSON无法解决循环引用的问题
+    四、引用丢失(处理循环引用时可以解决此问题)
+  
+  
+  
+  -->
+  <script>
+//     var a = {
+//     name: "muyiy",
+//     book: {
+//         title: "You Don't Know JS",
+//         price: "45"
+//     },
+//     a1: undefined,
+//     a2: null,
+//     a3: [1,2,3,4]
+// }
+
+    function deepClone(source) {
+      
+      // 传入值必须为对象
+      if(typeof source !=="object" || source == null) {
+        return source
+      }
+      // var target = {}
+      // 区分数组
+      var target = Array.isArray(source)?[] :{};
+
+      for(var key in source) {
+        if(Object.prototype.hasOwnProperty.call(source,key)) {
+          // 注意点 typeof null == "object" 因此要判断source[key]不为null
+          if(typeof source[key]==="object"&& source[key] !==null){
+            target[key] = deepClone(source[key])
+          } else {
+            target[key]=source[key]
+          }
+        }
+      }
+
+      return target
+
+    }
+    var bbb =  deepClone(a)
+  console.log(bbb)
+
+
+  </script>
+</body>
+</html>
