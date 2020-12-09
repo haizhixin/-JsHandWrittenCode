@@ -10,68 +10,138 @@
         // https://mp.weixin.qq.com/s/-52h-gbNfk1WfLtrOgTI4A
     </script>
     <script>
-        
-       // 原型链继承
-       function SubperType() {
-           this.name = "Subper"
-       }
-       function SubType() {
+        // 继承的八种方式
+        // 原型链继承
+        // function SubperType() {
+        //     this.name = "张三";
+        //     this.age = "18";
+        //     this.class = "高一"
+        // }
+        // function SubType() {
+        //     this.name = "subType",
+        //     this.age = "13"
+        // }
+        // SubperType.prototype.sayName = function () {
+        //     console.log(this.name)
+        // }
+        // SubType.prototype = new SubperType();
+        // SubType.prototype.constructor = SubType
 
-       }
-       SubType.prototype = new SubperType()
-       var sub = new SubType()
-       
-       // 盗用构造函数继承
-       function SubperType() {
+        // var sub = new SubType();
+        // console.log(sub.class)
+        // 缺点: 1,父类存在引用类型的属性值会造成影响
+        //       2,不能向父类传参
+        //       3,给子类原型添加方法或属性只能在继承父元素后 不然会被覆盖         
+        // 盗用构造函数
 
-       }
-       function SubType() {
-           SubperType.call(this)
-       }
-       // 组合继承
-       function SubperType() {
+        // function SubperType() {
+        //     this.name = "张三";
+        //     this.age = "18";
+        //     this.class = "高一"
+        // }
+        // function SubType() {
+        //     SubperType.call(this)
+        //     this.name = "subType",
+        //     this.age = "13"
+        // }
+        // var sub = new SubType();
+        // console.log(sub.name)
+        // 缺点：1,函数不能被重载 影响性能
+        //       2，不能继承父类原型上的方法与属性
 
-       }
-       function SubType() {
-           SubperType.call(this)
-       }
+        // 组合继承
+        function SubperType() {
+            this.name = "张三";
+            this.age = "18";
+            this.class = "高一"
+        }
+        function SubType() {
+            SubperType.call(this)
+            this.name = "subType",
+            this.age = "13"
+        }
+        SubType.prototype = new SubperType();
+        SubType.prototype.constructor = SubType;
+        var sub = new SubType()
+        // 缺点：1，重复创建父类实例上的属性和方法
+        //       2, 父类构造函数被调用两次
 
-       SubType.prototype = new SubperType()
-       var sub = new SubType()
-       // 原型式继承
-       function object(obj) {
-           function F() {
-           }
-           F.prototype =obj;
-           return new F()
-       }
-       // 另外object相当于 object.create()
-       // 寄生式继承
-       function anotherObject(obj) {
-           var clone = object(obj)
-           clone.sayName = function() {
-           // 在原型式继承的基础上增强对象
-           }
-           return clone
-       }
+        // 原型继承
+
+        function newObject(obj) {
+            function F() {}
+            F.prototype = obj;
+            return new F()
+        }
+        function SubperType() {
+            this.name = "张三";
+            this.age = "18";
+            this.class = "高一"
+        }
+        function SubType() {
+            this.name = "subType",
+            this.age = "13"
+        }
+        SubType.prototype = newObject(SubperType.prototype);
+        var sub = new SubType()
+        // 缺点：1.无法传递参数
+        //       2.当原型上有引用类型的属性时 子类实例会出现问题
+
+        // 寄生继承
+
+        function inherit(Sub,Subper) {
+            function F() {}
+            F.prototype = Subper.prototype;
+            F.prototype.constructor = Sub;
+            return new F()
+        }
+        function SubperType() {
+            this.name = "张三";
+            this.age = "18";
+            this.class = "高一"
+        }
+        function SubType() {
+            this.name = "subType",
+            this.age = "13"
+        }
+        inherit(SubType,SubperType);
+
+        var sub = new SubType()
+
+        // 缺点：1.无法传递参数
+        //       2.当原型上有引用类型的属性时 子类实例会出现问题
+
+        // 寄生组合继承
+        function SubperType() {
+            this.name = "张三";
+            this.age = "18";
+            this.class = "高一"
+        }
+        function SubType() {
+            SubperType.call(this)
+            this.name = "subType",
+            this.age = "13"
+        }
+        SubType.prototype = Object.create(SubperType.prototype);
+        SubType.prototype.constructor = SubType;
+        var sub = new SubType()
+        // 混入方式继承多个对象
+        function SubperType() {
+
+        }
+
+        function otherSubperType() {
+            
+        }
+
+        function subType () {
+
+        }
+        subType.prototype = Object.create(SubperType.prototype)
+        Object.assign(subType.prototype,SubperType.prototype)
+        var sub = new subType()
+        // extends继承
       
-       // 寄生式组合继承
-       function SuperType() {
-
-       }
-
-       function SubType() {
-        SubperType.call(this)   
-       }
-       function inherit(SubperType,SubType) {
-           var prototype = object(SubperType.prototype)
-           prototype.constructor = SubType;
-           SubType.prototype = prototype;
-       }
-
-       var sub = new SubType()
-
-       // class继承
 
 
 
