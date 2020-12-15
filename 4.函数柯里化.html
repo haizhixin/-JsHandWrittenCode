@@ -9,7 +9,73 @@
 
 <body>
     <script>
-       
+    // 函数柯里化
+    // function curry(fn) {
+    //     var args = Array.prototype.slice.call(arguments,1);
+    //     return function () {
+    //         if((args.length +arguments.length) <fn.length) {
+    //           return curry(fn,...args.concat([].slice.call(arguments)))
+    //         } else {
+    //           return fn.apply(null, args.concat([].slice.call(arguments)))
+    //         }
+    //     }
+    // }
+
+    // function curry(fn) {
+    //         return function curried() {
+    //             var args = [].slice.call(arguments)
+    //             if (args.length < fn.length) {
+    //                 return function () {
+    //                     return curried.apply(null, args.concat([].slice.call(arguments)))
+    //                 }
+    //             }
+    //             return fn.apply(null, args)
+    //         }
+    //     }
+
+    // function currying(fn, length) {
+    //         length = length || fn.length; 	// 注释 1
+    //         return function (...args) {			// 注释 2
+    //             return args.length >= length	// 注释 3
+    //                 ? fn.apply(this, args)			// 注释 4
+    //                 : currying(fn.bind(this, ...args), length - args.length) // 注释 5
+    //         }
+    //     }
+
+
+
+   function add() {
+
+    function fn() {
+        var arr = [].slice.call(arguments)
+        return  arr.reduce(function(a,b){
+             return a+b
+        })
+    }
+
+    function curry(fn) {
+            return function curried() {
+                var args = [].slice.call(arguments)
+                if (args.length < fn.length) {
+                    return function () {
+                        return curried.apply(null, args.concat([].slice.call(arguments)))
+                    }
+                }
+                return fn.apply(null, args)
+            }
+        }
+
+   }
+
+    
+
+    function add(a,b,c) {
+        return a +b+c
+    }
+
+   var aa = curry(add)
+   var bb = aa(1)(2, 3)
+   console.log(bb,"bb")
     </script>
 </body>
 
