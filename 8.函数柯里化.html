@@ -42,30 +42,43 @@
     //         }
     //     }
 
+    // 固定参数实现柯里化
+    // function curry(fn) {
+    //     return function curried() {
+    //         var args = [].slice.call(arguments)
+    //         if (args.length < fn.length) {
+    //             return function () {
+    //                 return curried.apply(null, args.concat([].slice.call(arguments)))
+    //             }
+    //         }
+    //         return fn.apply(null, args)
+    //     }
+    // }
 
-
-   function add() {
-
-    function fn() {
-        var arr = [].slice.call(arguments)
-        return  arr.reduce(function(a,b){
-             return a+b
-        })
+    // 变参函数实现柯里化
+    // function curry(fn,len) {
+    //   let len = len ||fn.length;
+    //   return function curried() {
+    //         var args = [].slice.call(arguments);
+    //         if(args.length<len) {
+    //             return curry(fn.bind(this,...args),len-args.length)
+    //         } else {
+    //             return fn.apply(this,args)
+    //         }
+    //   }
+    // }
+    // 变参函数实现柯里化(不绑定上下文)
+    function curry(fn,len) {
+      let len = len || fn.length;
+      return function curried() {
+         var args = [].slice.call(arguments);
+         return args.length<len ? fn.apply(null,args):
+         function() {
+             var _arg = [].slice.call(arguments)
+             return curried.apply(null,args.concat(_arg))
+         }
+      }
     }
-
-    function curry(fn) {
-            return function curried() {
-                var args = [].slice.call(arguments)
-                if (args.length < fn.length) {
-                    return function () {
-                        return curried.apply(null, args.concat([].slice.call(arguments)))
-                    }
-                }
-                return fn.apply(null, args)
-            }
-        }
-
-   }
 
     
 

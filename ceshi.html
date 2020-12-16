@@ -10,10 +10,16 @@
 <body>
   
     <script> 
-       var arr = [1,2,3,4,5]
-       arr.reduce((last,cur)=>{
-              console.log(last,cur)
-       },0)
+       // 实现flatten函数
+       function concatAll(arrays,fn) {
+           let results = [];
+           for(const value of arrays) {
+               results.push.apply(results,value)
+           }
+           return results
+       }
+
+       var bb = concatAll([[2],[3,4]])
     </script>
 </body>
 
