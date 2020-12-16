@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+    // 函数柯里化
+    // function curry(fn) {
+    //     var args = Array.prototype.slice.call(arguments,1);
+    //     return function () {
+    //         if((args.length +arguments.length) <fn.length) {
+    //           return curry(fn,...args.concat([].slice.call(arguments)))
+    //         } else {
+    //           return fn.apply(null, args.concat([].slice.call(arguments)))
+    //         }
+    //     }
+    // }
+
+    // function curry(fn) {
+    //         return function curried() {
+    //             var args = [].slice.call(arguments)
+    //             if (args.length < fn.length) {
+    //                 return function () {
+    //                     return curried.apply(null, args.concat([].slice.call(arguments)))
+    //                 }
+    //             }
+    //             return fn.apply(null, args)
+    //         }
+    //     }
+
+    // function currying(fn, length) {
+    //         length = length || fn.length; 	// 注释 1
+    //         return function (...args) {			// 注释 2
+    //             return args.length >= length	// 注释 3
+    //                 ? fn.apply(this, args)			// 注释 4
+    //                 : currying(fn.bind(this, ...args), length - args.length) // 注释 5
+    //         }
+    //     }
+
+    // 固定参数实现柯里化
+    // function curry(fn) {
+    //     return function curried() {
+    //         var args = [].slice.call(arguments)
+    //         if (args.length < fn.length) {
+    //             return function () {
+    //                 return curried.apply(null, args.concat([].slice.call(arguments)))
+    //             }
+    //         }
+    //         return fn.apply(null, args)
+    //     }
+    // }
+
+    // 变参函数实现柯里化
+    // function curry(fn,len) {
+    //   let len = len ||fn.length;
+    //   return function curried() {
+    //         var args = [].slice.call(arguments);
+    //         if(args.length<len) {
+    //             return curry(fn.bind(this,...args),len-args.length)
+    //         } else {
+    //             return fn.apply(this,args)
+    //         }
+    //   }
+    // }
+    // 变参函数实现柯里化(不绑定上下文)
+    function curry(fn,len) {
+      let len = len || fn.length;
+      return function curried() {
+         var args = [].slice.call(arguments);
+         return args.length<len ? fn.apply(null,args):
+         function() {
+             var _arg = [].slice.call(arguments)
+             return curried.apply(null,args.concat(_arg))
+         }
+      }
+    }
+
+    
+
+    function add(a,b,c) {
+        return a +b+c
+    }
+
+   var aa = curry(add)
+   var bb = aa(1)(2, 3)
+   console.log(bb,"bb")
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <!-- 深拷贝 == 浅拷贝+递归
+    一、简单实现
+    二、拷贝数组
+    三、处理循环引用 JSON无法解决循环引用的问题
+    四、引用丢失(处理循环引用时可以解决此问题)
+    五、拷贝symbol值
+    六、解决循环爆栈的问题
+  
+  -->
+  <script>
+//     var a = {
+//     name: "muyiy",
+//     book: {
+//         title: "You Don't Know JS",
+//         price: "45"
+//     },
+//     a1: undefined,
+//     a2: null,
+//     a3: [1,2,3,4]
+// }
+    //第一步 第二步
+    // function deepClone(source) {
+    //   // 传入值必须为对象
+    //   if(typeof source !=="object" || source == null) {
+    //     return source
+    //   }
+    //   // var target = {}
+    //   // 区分数组
+    //   var target = Array.isArray(source)?[] :{};
+    //   for(var key in source) {
+    //     if(Object.prototype.hasOwnProperty.call(source,key)) {
+    //       // 注意点 typeof null == "object" 因此要判断source[key]不为null
+    //       if(typeof source[key]==="object"&& source[key] !==null){
+    //         target[key] = deepClone(source[key])
+    //       } else {
+    //         target[key]=source[key]
+    //       }
+    //     }
+    //   }
+    //   return target
+    // }
+    // // Maximum call stack size exceeded 栈溢出
+    // var a = {
+    //   name :"18",
+    // }
+    // var b = {
+    //   name:"22",
+    // }
+    // a.obj = b;
+    // b.n = a;
+    // var dd = deepClone(a);
+    // console.log(dd,"dd")
+
+
+    
+
+    // 第三步 数组方法
+    // function deepClone(source,arr=[]) {
+    //   // 传入值必须为对象
+    //   if(typeof source !=="object" || source == null) {
+    //     return source
+    //   }
+    //   let uniqData = find(arr,source)
+    //   if(uniqData) {
+    //     return uniqData.target
+    //   }
+    //   // 区分数组
+    //   var target = Array.isArray(source)?[] :{};
+    //   arr.push({
+    //     source,
+    //     target,
+    //   })
+    //   for(var key in source) {
+    //     if(Object.prototype.hasOwnProperty.call(source,key)) {
+    //       // 注意点 typeof null == "object" 因此要判断source[key]不为null
+    //       if(typeof source[key]==="object"&& source[key] !==null){
+    //         target[key] = deepClone(source[key],arr)
+    //       } else {
+    //         target[key]=source[key]
+    //       }
+    //     }
+    //   }
+    //   return target
+    // }
+
+    // function find(arr,item) {
+    //   for(var i = 0;i<arr.length;i++) {
+    //     if(arr[i].source==item) {
+    //       return arr[i]
+    //     }
+    //   }
+    //   return null
+    // }
+
+
+    //第三步 哈希表方法
+    function deepClone(source,hash=new WeakMap()) {
+      // 传入值必须为对象
+      if(typeof source !=="object" || source == null) {
+        return source
+      }
+      if(hash.has(source)) {
+        return hash.get(source)
+      }
+      // 区分数组
+      var target = Array.isArray(source)?[] :{};
+      hash.set(source,target )
+      for(var key in source) {
+        if(Object.prototype.hasOwnProperty.call(source,key)) {
+          // 注意点 typeof null == "object" 因此要判断source[key]不为null
+          if(typeof source[key]==="object"&& source[key] !==null){
+            target[key] = deepClone(source[key],hash)
+          } else {
+            target[key]=source[key]
+          }
+        }
+      }
+      return target
+    }
+    // 解决引用丢失问题
+    // var obj = {
+    //   name:"222"
+    // }
+    // var a = {
+    //    b : obj,
+    //    c:obj,
+    // }
+    var dd = deepClone(a);
+    console.log(dd,"dd",dd.b===dd.c)
+
+
+
+
+  </script>
+</body>
+</html>

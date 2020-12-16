@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 偏函数 -->
+    <script>
+        // function partial(fn) {
+        //     const args = [].slice.call(arguments,1)
+        //     return function() {
+        //         const arguments = [].slice.call(arguments);
+        //         return fn.apply(null,args.concat(arguments))
+        //     }
+        // }
+
+       // 通过传递undefined来实现偏应用
+        function partial(fn,...partialArgs) {
+            let arg = 0;
+            return function(...args) {
+                for (let i = 0; i < partialArgs.length && arg < args.length; i++) {
+                      if(partialArgs[i]==undefined) {
+                          partialArgs[i] == args[arg++]
+                      }
+                }
+                return fn.apply(null,partialArgs)
+            }
+        }
+
+    </script>
+    
+</body>
+</html>
