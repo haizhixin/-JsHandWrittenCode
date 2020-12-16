@@ -26,7 +26,7 @@ https://mp.weixin.qq.com/s/Qqh1H-2MUyVGoWjgOstQrg -->
         // 3.监听readyState状态的变化
         xhr.onreadystatechange = function() {
             if (xhr.readyState == 4) {
-                if (xhr.status == 200 && xhr.status < 300 || xhr.status == 304) {
+                if (xhr.status >= 200&&xhr.status<300 || xhr.status == 304) {
                     console.log(xhr.responseText)
                 } else {
                     console.log("请求失败")
@@ -56,6 +56,7 @@ https://mp.weixin.qq.com/s/Qqh1H-2MUyVGoWjgOstQrg -->
         xhr.setRequestHeader("xxx", "xxx")
         xhr.send()
     </script>
+   
 
 </body>
 
