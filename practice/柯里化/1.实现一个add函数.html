@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+   <!--
+        实现一个add函数满足以下功能 
+        add(1); 	// 1
+        add(1)(2);  	// 3
+        add(1)(2)(3)；  // 6
+        add(1)(2, 3);   // 6
+        add(1, 2)(3);   // 6
+        add(1, 2, 3);   // 6
+    -->
+    <script>
+        function add() {
+            var args = Array.prototype.slice.call(arguments);
+            var fn = function() {
+                var _args = Array.prototype.slice.call(arguments);
+                return add.apply(null,args.concat(_args))
+            }
+            fn.toString = function () {
+              return args.reduce(function(a,b){
+                    return a+b
+                })
+            }
+            return fn
+        }
+        var bb = add(1)
+        console.log(bb)
+    </script>
+</body>
+</html>
