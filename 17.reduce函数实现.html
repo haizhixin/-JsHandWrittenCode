@@ -7,21 +7,30 @@
 </head>
 <body>
     <script>
-        // 实现reduce函数
-        function reduce2(fn,initial) {
-
-            return function () {
-                var args = Array.prototype.slice(arguments);
-                if(initial == undefined) {
-
+        // reduce函数原理 终极版
+        Array.prototype.reduce2=function(fn,initialValue) {
+            if(this.length===0){
+                if(initialValue === undefined) {
+                   throw new Error("Reduce of empty array with no initial value")
                 } else {
-
-                } 
-
+                    return initialValue
+                }
+            } else {
+                let pre = initialValue ? initialValue : this[0];
+                let start = initialValue?0:1;
+                for(let i = start;i<this.length;i++) {
+                    pre = fn(pre,this[i])
+                }
+                return pre
             }
-          
-          
         }
+        var arr= [1,2,3,4]
+        var res = arr.reduce2(function(a,b){
+            return a +b
+        },1)
+
+        console.log(res)
+
     </script>
 </body>
 </html>
