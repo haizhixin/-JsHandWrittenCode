@@ -8,6 +8,15 @@
 <body>
     <script>
     // 管道函数pipe
+    // 从左向右执行
+    function pipe() {
+        var args = Array.prototype.slice.call(arguments);
+        return  function(initial) {
+            return args.reduce(function (acc, fn) {
+                return fn(acc)
+            }, initial)
+        }
+    }
 
     </script>
 </body>

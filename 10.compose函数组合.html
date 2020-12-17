@@ -6,21 +6,19 @@
     <title>Document</title>
 </head>
 <body>
-    
     <script>
         // 组合函数使用reduce
         // 从右到左执行 注意初始值
-
         // 返回的是一个函数
         function compose() {
             var args = [].slice.call(arguments);
-            return function () {
+            args.reverse()
+            return function (value) {
              return args.reduce(function(acc,fn){
                      return fn(acc)
-             },arguments)
+             },value)
            }
         }
-
         // 组合函数不使用reduce
         function compose() {
             var args = [].slice.call(arguments);
