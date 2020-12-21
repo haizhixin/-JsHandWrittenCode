@@ -23,6 +23,9 @@
         function compose() {
             var args = [].slice.call(arguments);
             let fn = args.shift()
+            if (!fn) {
+                return
+            }
             let gn = args.shift()
             let gon = gn ? function() { return fn(gn.apply(this, arguments)) }: fn;
             return args.length ? compose.apply(this,[gon].concat(args)) : gon
