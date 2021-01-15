@@ -7,6 +7,64 @@
 </head>
 <body>
     <script>
+        // 实现reduce函数
+        // function reduce2(fn,initial) {
+        //     return function () {
+        //         let n;
+        //         var args = Array.prototype.slice(arguments);
+        //         if(initial == undefined) {
+        //             n = args[0];
+        //             for(var j =1;j<args.length;j++) {
+        //                 n = fn.apply(null,[n,args[i]])
+        //             }
+        //         } else {
+        //             n = initial;
+        //           for(var i=0;i<args.length;i++){
+        //             n = fn.apply(null,[n,args[i]])
+        //           }
+        //         } 
+        //         return n
+        //     }
+        // }
+        // reduce函数接收一个函数
+        /*      
+            参数	描述
+            function(total,currentValue, index,arr)	必需。用于执行每个数组元素的函数。
+            函数参数:
+            参数	描述
+            total	必需。初始值, 或者计算结束后的返回值。
+            currentValue	必需。当前元素
+            currentIndex	可选。当前元素的索引
+            arr	可选。当前元素所属的数组对象。
+        
+
+            initialValue	可选。传递给函数的初始值 
+            如果不传初始值 会把数组第一个元素作为初始值
+
+            空函数不会执行回调函数
+        */
+
+        // 最终版
+        function reduce1(array,fn,initialValue) {
+            let accumlator;
+            if(initialValue !=undefined) {
+               accumlator = initialValue;
+               for(var i = 0;i<array.length;i++) {
+                accumlator = fn(accumlator,array[i])
+               }
+            } else {
+                accumlator = array[0];
+                for(var j = 1;j<array.length;j++) {
+                    accumlator = fn(accumlator,array[j])
+                }
+            }
+            return accumlator
+        }
+
+    //     function aa(a,b) {
+    //         return a+b
+    //     }
+    //    console.log(reduce1([1, 2, 3], aa, 33))  
         // reduce函数原理 终极版
         Array.prototype.reduce2=function(fn,initialValue) {
             if(this.length===0){

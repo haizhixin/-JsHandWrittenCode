@@ -8,6 +8,7 @@
 </head>
 <body>
     <script>
+<<<<<<< HEAD
    
 // window.addEventListener("beforunload", () => {
 //       console.log("执行1");
@@ -17,6 +18,57 @@ window.onbeforeunload = function() {
     console.log("zhiixnggsd")
     return "ddddd"
 }
+=======
+        // class Parent{
+        //     static myMethod(msg) {
+        //         console.log('static',msg);
+        //     }
+        //     myMethod(msg) {
+        //         console.log('instance',msg)
+        //     }
+        // }
+
+        // class Child extends Parent {
+        //     static myMethod(msg) {
+        //        super.myMethod(msg);
+        //     }
+        //     myMethod(msg) {
+        //         super.myMethod(msg)
+        //     }
+        // }
+        // Child.myMethod(1);
+        // var child = new Child()
+        // child.myMethod(2)
+
+
+        class A {
+            constructor() {
+                this.x= 1;
+                console.log(this.x)
+            }
+            static print() {
+                console.log(this.x)
+            }
+        }
+        class B extends A {
+            constructor() {
+                super();
+                this.x = 2;
+                console.log(this.x)
+            }
+            static m() {
+                super.print()
+            }
+        }
+        const b = new B();
+        B.m()
+        B.x =3
+        B.m()
+
+
+
+
+>>>>>>> 9eed6baffdcfd5e7cacfcbff59bc00765254fbfc
     </script>
 </body>
 

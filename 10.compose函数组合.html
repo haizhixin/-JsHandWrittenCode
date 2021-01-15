@@ -6,25 +6,26 @@
     <title>Document</title>
 </head>
 <body>
-    
     <script>
         // 组合函数使用reduce
         // 从右到左执行 注意初始值
-
         // 返回的是一个函数
         function compose() {
             var args = [].slice.call(arguments);
-            return function () {
+            args.reverse()
+            return function (value) {
              return args.reduce(function(acc,fn){
                      return fn(acc)
-             },arguments)
+             },value)
            }
         }
-
         // 组合函数不使用reduce
         function compose() {
             var args = [].slice.call(arguments);
             let fn = args.shift()
+            if (!fn) {
+                return
+            }
             let gn = args.shift()
             let gon = gn ? function() { return fn(gn.apply(this, arguments)) }: fn;
             return args.length ? compose.apply(this,[gon].concat(args)) : gon
