@@ -41,7 +41,7 @@
                 let result = fn.apply(this instanceof FNop?this:context,arr)
                 return result
             }
-            Fn.prototype = this.prototype;
+            FNop.prototype = this.prototype;
             fnbind.prototype = new Fn()
             // fnbind.prototype = this.prototype;
             return fnbind
