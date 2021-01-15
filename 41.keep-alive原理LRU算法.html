@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- LRU算法 keep-alive原理 -->
+    <script>
+        const LRUCache = function(capacity) {
+            this.map = {}
+            this.size = 0;
+            this.maxSize = capacity;
+            // 链表初始化
+            this.head = {
+                prev:null,
+                next:null
+            }
+            this.tail  ={
+                prev = this.head,
+                next = null
+            }
+            this.head.next = this.tail
+        }
+        //获取
+        LRUCache.prototype.get = function(key) {
+          if(this.map[key]) {
+              //从链表中获取节点
+              const node = this.extractNode(this.map[key])
+              //最新访问节点放到头部
+              this.insertNodeHead(node)
+              return this.map[key].val
+          } else {
+              return -1
+          }
+        }
+        //写入
+        LRUCache.prototype.put = function(key,value) {
+            let node;
+            if(this.map[key]) {
+               // 该项已经存在,更新值
+               node = this.extractNode(this.map[key])
+               node.val = value
+            } else {
+                // 如果不存在创造新节点
+                node = {
+                    prev:null,
+                    next:null,
+                    val:value,
+                    key,
+                }
+                this.map[key] = node
+                this.size++
+            }
+            // 最新写入将该节点放到链表的头部
+            this.insertNodeToHead(node)
+            //判断长度是否已经到达上限
+            if(this.size >this.maxSize) {
+                const nodeToDelete = this.tail.prev
+                const keyToDelete = nodeToDelete.key
+                this.extractNode(nodeToDelete)
+                this.size--
+                delete this.map[keyToDelete]
+            }
+            
+        }
+
+        // 插入节点到链表首项
+        LRUCache.prototype.insertNodeToHead = function  (node) {
+           const head = this.head;
+           const lastFirstNode = this.head.next;
+           node.prev = head;
+           head.next = node;
+           node.next = lastFirstNode;
+           lastFirstNode.pre = node
+           
+           return node
+        }
+
+        // 从链表中抽取节点
+        LRUCache.prototype.extractNode = function(node) {
+            const beforeNode = node.pre
+            const afterNode = node.next
+            beforeNode.next = afterNode
+            afterNode.pre = beforeNode
+            node.pre = null
+            node.next = null
+            return node
+        }
+    </script>
+
+    <script>
+        // vue源码中的LRU算法
+        //初始化用于储存缓存的cache对象 
+        this.cache = Object.create(null);
+        this.keys =[]
+        const {cache,keys} = this
+        // LRU算法
+        if(cache[key]) {
+            remove(keys,key)
+            keys.push(key)
+        } else {//如果没有命中缓存就把vnode放进缓存
+            cache[key]=vnode;
+            keys.push(key)
+
+            // 如果配置了max并且缓存的长度超过了this.max 还要从缓存中删除第一个
+            if(this.max&&keys.length>parseInt(this.max)) {
+                pruneCacheEntry(cache,keys[0],keys,this._Vnode);
+            }
+
+        }
+
+
+
+
+
+    </script>
+</body>
+</html>
