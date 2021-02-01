@@ -15,6 +15,7 @@
         // 应用场景 页面滚动 拖拽
 
         // 时间戳
+        // 立即执行,但是当事件停止后没有办法再次执行事件
         function throttle(await, fn) {
             let previous = Date.now().getTime();
             return function() {
@@ -30,6 +31,7 @@
         }
 
         // 定时器
+        // 延迟执行,当事件停止后仍然会执行一次
         function throttle(await, fn) {
             let timeout = null;
             return function() {
