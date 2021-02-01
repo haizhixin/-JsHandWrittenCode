@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //proxy的用法
+
+        // var proxy = new Proxy(target,handler);
+
+
+        // var proxy = new Proxy({},{
+        //     get(){
+
+        //     },
+        //     set() {
+
+        //     },
+        //     apply() {
+
+        //     },
+        //     construct() {
+
+        //     },
+        //     ownKeys() {
+
+        //     },
+        //     has() {
+
+        //     },
+        //     setPrototypeOf() {
+
+        //     },
+        //     getPrototypeOf() {
+
+        //     },
+        //     getOwnPropertyDescriptor() {
+
+        //     },
+        //     deleteProperty() {
+             
+        //     },
+        //     defineProperty() {
+
+        //     },
+        //     preventExtensions() {
+
+        //     },
+        //     isExtensible() {
+
+        //     }
+        // })
+
+
+
+        // var person = {
+        //   name:"张三"
+        // }
+
+        // var proxy = new Proxy(person,{
+        //     get:function(target,propKey,receiver) {
+        //         console.log(target,propKey,receiver,"receiver")
+        //         if(propKey in target) {
+        //             return target[propKey]
+        //         } else {
+        //             throw new ReferenceError("错误")
+        //         }
+        //     }
+        // })
+
+        // proxy.age
+
+        const handler = {
+            get(target,key) {
+                invariant(key,'get');
+                return target[key];
+            },
+            set(target,key,value) {
+                invariant(key,"set");
+                target[key] = value;
+                return true
+            }
+        }
+
+        function invariant (key,action) {
+            if(key[0] === "_") {
+                throw new Error(`Invalid attempt to ${action} private "${key}" property`);
+            }
+        }
+
+        const target = {};
+        const proxy = new Proxy(target,handler);
+        proxy.prop
+  
+
+
+    </script>
+</body>
+</html>
