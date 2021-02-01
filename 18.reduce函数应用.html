@@ -7,7 +7,7 @@
 </head>
 <body>
     <script>
-        //1, reduce 实现 runPromiseInSequence
+        //一, reduce 实现 runPromiseInSequence
         // const runPromiseInSequence = (array,value)=>{
         //   array.reduce((PromiseChain,curPromise)=>{
         //    return PromiseChain.then(()=>{
@@ -16,27 +16,28 @@
         //   },Promise.resolve(value))
         // }
         const f1 = () => new Promise((resolve, reject) => {
-                setTimeout(() => {
-                    console.log('p1 running')
-                    resolve(1)
-                }, 1000)
-            })
+            setTimeout(() => {
+                console.log('p1 running')
+                resolve(1)
+            }, 1000)
+        })
 
-            const f2 = () => new Promise((resolve, reject) => {
-                setTimeout(() => {
-                    console.log('p2 running')
-                    resolve(2)
-                }, 1000)
-            })
+        const f2 = () => new Promise((resolve, reject) => {
+            setTimeout(() => {
+                console.log('p2 running')
+                resolve(2)
+            }, 1000)
+        })
 
-            const array = [f1, f2]
+        const array = [f1, f2]
 
-            const runPromiseInSequence = (array, value) => array.reduce(
-                (promiseChain, currentFunction) => promiseChain.then(currentFunction),
-                Promise.resolve(value)
-            )
-            runPromiseInSequence(array, 'init')
-         // reduce实现管道函数 和reduce实现组合函数具体见compose和pipe的实现方式
+        const runPromiseInSequence = (array, value) => array.reduce(
+            (promiseChain, currentFunction) => promiseChain.then(currentFunction),
+            Promise.resolve(value)
+        )
+        runPromiseInSequence(array, 'init')
+        //  reduce实现管道函数 和reduce实现组合函数具体见compose和pipe的实现方式
+        //  二、管道函数
         //  const pipe = (...args) =>{
         //      return (initialValue)=>{
         //        return args.reduce((previous,fn)=>{
@@ -44,15 +45,61 @@
         //        },initialValue)
         //      }
         //  }
-
-        // 组合函数
-        const compose = (...args) => {
-            return (initValue)=>{
-                return args.reduceRight((previous,fn)=>{
-                     return fn(previous)
-                },initValue)
+        // 三、组合函数
+        //     const compose = (...args) => { 
+        //         return (initValue)=>{
+        //             return args.reduceRight((previous,fn)=>{
+        //                  return fn(previous)
+        //             },initValue)
+        //     }
+        //   }
+        // 四、 不使用reduceRight
+        // const compose = (...args)=>{
+        //     return (initValue)=>{
+        //         return args.reverse().reduce((previous,fn)=>{
+        //         return fn(previous)
+        //         },initValue)
+        //     }
+        // }
+        // 五、不使用reduce函数
+        const pipe = (...args) => {
+            return (initValue) => {
+                let result = initValue;
+                for(i = 0;i<args.length;i++) {
+                    result = args[i].call(this,result)
+                }
+                return result
+            }
         }
-    }
+        // 六不使用reduce函数
+        const compose = (...args) => {
+            return (initValue) => {
+                let result = initValue;
+                let len =args.length;
+                for(let i=len;i>0;i--) {
+                    result = args[i-1].call(this,result)
+                }
+                return result
+            }
+        }
+        // 实现reduce函数
+        const reduce2 = Array.prototype.reduce || function (arr,fn,initValue) {
+            if(!Array.isArray(arr)){
+              throw new TypeError(arr+" is not Array")
+            }
+            if(typeof fn !=="function") {
+              throw new TypeError( fn+ "is not function")
+            }
+            let previous;
+            if(!initValue){
+               previous = arr.shift();
+            }
+            let result = initValue?initValue:previous;
+            for(let i=0;i<arr.length;i++) {
+              result = fn.apply(null,[result,arr[i],i])
+            }
+            return result
+        }
     </script>
     
 </body>

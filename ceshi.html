@@ -8,7 +8,18 @@
 </head>
 <body>
     <script>
-<<<<<<< HEAD
+
+window.addEventListener("beforunload", () => {
+      console.log("执行1");
+      return "dddd"
+});
+window.onbeforeunload = function() {
+    console.log("zhiixnggsd")
+    return "ddddd"
+}
+        // class Parent{
+        //     static myMethod(msg) {
+        //         console.log('static',msg);
         // // class Parent{
         // //     static myMethod(msg) {
         // //         console.log('static',msg);
@@ -35,8 +46,7 @@
         //     constructor() {
         //         this.x= 1;
         //         console.log(this.x)
-=======
-<<<<<<< HEAD
+
    
 // window.addEventListener("beforunload", () => {
 //       console.log("执行1");
@@ -46,11 +56,10 @@ window.onbeforeunload = function() {
     console.log("zhiixnggsd")
     return "ddddd"
 }
-=======
         // class Parent{
         //     static myMethod(msg) {
         //         console.log('static',msg);
->>>>>>> 4c4d0bf6ce5b78793b2e332aea88fa200b171fe0
+
         //     }
         //     static print() {
         //         console.log(this.x)
@@ -116,50 +125,42 @@ window.onbeforeunload = function() {
 
 
 
-    var jQuery = (function () {
-        var $
+    // var jQuery = (function () {
+    //     var $
 
-        // ...
+    //     // ...
 
-        $ = function (selector, context) {
-            return function (selector, context) {
-                var dom = []
-                dom.__proto__ = $.fn
+    //     $ = function (selector, context) {
+    //         return function (selector, context) {
+    //             var dom = []
+    //             dom.__proto__ = $.fn
 
-                // ...
+    //             // ...
 
-                return dom
-            }
-        }
+    //             return dom
+    //         }
+    //     }
 
-        $.fn = {
-            addClass: function () {
-                console.log("dddd")
-                // ...
-            },
-            // ...
-        }
+    //     $.fn = {
+    //         addClass: function () {
+    //             console.log("dddd")
+    //             // ...
+    //         },
+    //         // ...
+    //     }
 
-        $.ajax = function () {
-            // ...
-        }
+    //     $.ajax = function () {
+    //         // ...
+    //     }
 
-        return $
-    })()
+    //     return $
+    // })()
 
-    window.jQuery = jQuery
-    window.$ === undefined && (window.$ = jQuery)
+    // window.jQuery = jQuery
+    // window.$ === undefined && (window.$ = jQuery)
 
-    console.log($("p")().addClass(),"sss")
+    // console.log($("p")().addClass(),"sss")
         
-        
-
-        
-
-
-
-
->>>>>>> 9eed6baffdcfd5e7cacfcbff59bc00765254fbfc
     </script>
 </body>
 
