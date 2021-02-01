@@ -8,10 +8,10 @@
 </head>
 <body>
     <script>
-// window.addEventListener("beforunload", () => {
-//       console.log("执行1");
-//       return "dddd"
-// });
+window.addEventListener("beforunload", () => {
+      console.log("执行1");
+      return "dddd"
+});
 window.onbeforeunload = function() {
     console.log("zhiixnggsd")
     return "ddddd"
@@ -110,41 +110,41 @@ window.onbeforeunload = function() {
 
 
 
-    var jQuery = (function () {
-        var $
+    // var jQuery = (function () {
+    //     var $
 
-        // ...
+    //     // ...
 
-        $ = function (selector, context) {
-            return function (selector, context) {
-                var dom = []
-                dom.__proto__ = $.fn
+    //     $ = function (selector, context) {
+    //         return function (selector, context) {
+    //             var dom = []
+    //             dom.__proto__ = $.fn
 
-                // ...
+    //             // ...
 
-                return dom
-            }
-        }
+    //             return dom
+    //         }
+    //     }
 
-        $.fn = {
-            addClass: function () {
-                console.log("dddd")
-                // ...
-            },
-            // ...
-        }
+    //     $.fn = {
+    //         addClass: function () {
+    //             console.log("dddd")
+    //             // ...
+    //         },
+    //         // ...
+    //     }
 
-        $.ajax = function () {
-            // ...
-        }
+    //     $.ajax = function () {
+    //         // ...
+    //     }
 
-        return $
-    })()
+    //     return $
+    // })()
 
-    window.jQuery = jQuery
-    window.$ === undefined && (window.$ = jQuery)
+    // window.jQuery = jQuery
+    // window.$ === undefined && (window.$ = jQuery)
 
-    console.log($("p")().addClass(),"sss")
+    // console.log($("p")().addClass(),"sss")
         
     </script>
 </body>
