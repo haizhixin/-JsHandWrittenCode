@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        class lazyManGenerator {
+          constructor(name) {
+            // 初始化任务队列
+            this.taskArray = []; 
+            const task = () => {
+                  console.log(`Hi! This is${name}`)
+                  this.next()
+             }
+            this.taskArray.push(task)
+             setTimeout(()=>{
+              this.next()
+             },0)  
+          }
+          next() {
+              //实现next方法
+              const task = this.taskArray.shift()
+              task && task()
+          }
+          sleep(num) {
+            this.sleepTask(num,false)
+             
+            return this
+          }
+
+          sleepTask(num,parior) {
+              const task = () => {
+                  setTimeout(() => {
+                      console.log(`等待${num}秒`)
+                      console.log(`Wake up after${num}`)
+                      this.next()
+                  }, num * 1000)
+
+              }
+              if(parior) {
+                  this.taskArray.unshift(task)
+              } else {
+                  this.taskArray.push(task)
+              }
+
+          }
+          sleepFirst(num) {
+              this.sleepTask(num, true)
+              return this
+          }
+          eat(name) {
+            const task = ()=> {
+              console.log(`Eat ${name}`)
+              this.next()
+              
+            }
+            this.taskArray.push(task)
+            return this
+          }
+        }
+
+        function lazyMan(name) {
+           return new lazyManGenerator(name)
+        }
+
+        lazyMan("Hank").sleepFirst(5).eat("supper")
+
+
+    </script>
+</body>
+</html>
