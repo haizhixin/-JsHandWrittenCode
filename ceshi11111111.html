@@ -7,15 +7,40 @@
 </head>
 <body>
     <script>
-        // 生成器函数 
-      var generator= function *() {
-          yield* [1,2,3]
+    // 函数柯里化 参数固定
+    const curried = function (fn) {
+        return function currying () {
+            let args = Array.prototype.slice.call(arguments);
+            if(args.length >= fn.length) {
+                return fn.apply(this,args)
+            } else {
+              return function() {
+                  currying.apply(null,args.concat(Array.prototype.slice.call(arguments)))
+              }
+            }
 
-      }
-      var aa = generator()
-      aa.next()
-      aa.next()
-      console.log(aa.next()) 
+        }
+    }
+    //ES6写法
+    const currying = fn => {
+        const curried = (...arg) => {
+            if(arg.length>=fn.length) {
+               return fn.apply(this,arg)
+            } else {
+               return (...arg1) => {
+                    curried(...arg,...arg1)
+               }
+            }
+        }
+
+        return curried
+    }
+
+
+    // 函数柯里化 参数与不固定
+
+
+      
        
      
 

@@ -6,6 +6,23 @@
     <title>Document</title>
 </head>
 <body>
+    <!-- 利用闭包实现函数缓存 -->
+    <script>
+    function memorize(fn) {
+        let cache = {}
+        return function(...args) {
+            let cacheKey = args.join("_")
+            if(key in cache) {
+             return cache[cacheKey]
+            } else {
+              return cacheKey[key] = fn.apply(this||{},args)
+            }
+
+        }
+
+    }
+
+    </script>
     
 </body>
 </html>

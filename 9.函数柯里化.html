@@ -9,7 +9,7 @@
 
 <body>
     <script>
-    // 函数柯里化 参数固定(绑定上下文)
+        // 函数柯里化 参数固定(绑定上下文)
         function currying(fn) {
             return function curried() {
                 var args = Array.prototype.slice.call(arguments)
@@ -38,12 +38,12 @@
         // ES6实现函数柯里化
         const currying = (fn) => (judge=(...args)=> args.length>=fn.length ?fn(...args):(...arr)=>judge(...args,...arr))
 
-    function add() {
-       var args = Array.prototype.slice.call(arguments)
-       return args.reduce(function(acc,cur){
-        return acc + cur
-       },0)
-    }
+        function add() {
+        var args = Array.prototype.slice.call(arguments)
+        return args.reduce(function(acc,cur){
+            return acc + cur
+        },0)
+        }
 
    var aa = currying(add)
    var bb = aa(1)(2)
