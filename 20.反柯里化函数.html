@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 反柯里化函数 -->
+    <!-- 
+        一,反柯里化函数的参数是一个 希望被其他对象所调用的方法 暂且称为fn
+        二,返回一个新函数
+        三,该函数的第一个参数是预期要执行方法的对象obj,后面的参数是执行这个方法时需要传递的参数
+     -->
+    <script>
+        // ES5的实现方式
+        function unCurry(fn){
+            return function() {
+                var obj = [].shift.call(arguments)
+                return fn.apply(obj,arguments)
+            }
+        }
+        // ES6的实现方式
+        const unCurry = fn => (...rest)=> fn.call(...rest)
+
+        //挂载在原型上
+        Function.prototype.unCurry = Function.prototype.unCurry||function() {
+            const self = this
+            return function() {
+                return Function.prototype.call.apply(self,arguments)
+            }
+        }
+
+        //借助bind函数实现
+        Function.prototype.unCurry = function() {
+            return this.call.bind(this)
+        }
+    </script>
+</body>
+</html>

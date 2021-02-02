@@ -15,20 +15,22 @@
         //         return fn.apply(null,args.concat(arguments))
         //     }
         // }
-
-       // 通过传递undefined来实现偏应用
-        function partial(fn,...partialArgs) {
-            let arg = 0;
-            return function(...args) {
-                for (let i = 0; i < partialArgs.length && arg < args.length; i++) {
-                      if(partialArgs[i]==undefined) {
-                          partialArgs[i] == args[arg++]
-                      }
-                }
-                return fn.apply(null,partialArgs)
-            }
-        }
-
+        // 通过传递undefined来实现偏应用
+        // function partial(fn,...partialArgs) {
+        //     let arg = 0;
+        //     return function(...args) {
+        //         for (let i = 0; i < partialArgs.length && arg < args.length; i++) {
+        //               if(partialArgs[i]==undefined) {
+        //                   partialArgs[i] == args[arg++]
+        //               }
+        //         }
+        //         return fn.apply(null,partialArgs)
+        //     }
+        // }
+        //ES6实现偏应用函数
+        const partial = (fn,...rest) => (...arg)=> fn(...rest,...arg);
+        //利用bind函数实现偏应用函数
+        const partial = (fn,...rest) => fn.bind(null, ...rest)
     </script>
     
 </body>

@@ -22,18 +22,23 @@
     }
 
     // 另一种实现方式 参考
-    function instance_of(L, R) {//L 表示左表达式，R 表示右表达式
-            var O = R.prototype;// 取 R 的显示原型
-            L = L.__proto__;// 取 L 的隐式原型
-            while (true) {
-                // Object.prototype.__proto__ === null
-                if (L === null)
-                    return false;
-                if (O === L)// 这里重点：当 O 严格等于 L 时，返回 true 
-                    return true;
-                L = L.__proto__;
+    function instancOf(L,R) {
+        if(typeof L !=="object") {
+            return false
+        }
+        R = R.prototype;
+        while(true) {
+            if(L===null) {
+                return false
+            } 
+            if(L.__proto__===R) {
+                return true
             }
+            L = L.__proto__
+        }
+
     }
+   
 
 
     // 测试

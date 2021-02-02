@@ -7,37 +7,11 @@
 </head>
 <body>
     <script>
-    // 函数柯里化 参数固定
-    const curried = function (fn) {
-        return function currying () {
-            let args = Array.prototype.slice.call(arguments);
-            if(args.length >= fn.length) {
-                return fn.apply(this,args)
-            } else {
-              return function() {
-                  currying.apply(null,args.concat(Array.prototype.slice.call(arguments)))
-              }
-            }
-
-        }
-    }
-    //ES6写法
-    const currying = fn => {
-        const curried = (...arg) => {
-            if(arg.length>=fn.length) {
-               return fn.apply(this,arg)
-            } else {
-               return (...arg1) => {
-                    curried(...arg,...arg1)
-               }
-            }
-        }
-
-        return curried
-    }
+        f String() { [native code] }
+        f Boolean() { [native code] }
+    
 
 
-    // 函数柯里化 参数与不固定
 
 
       
