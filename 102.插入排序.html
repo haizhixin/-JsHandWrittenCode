@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 插入排序
+    一,先将待排序序列的第一个元素看做是一个有序序列
+    二,把第二个元素到最后一个元素当成是未排序序列
+    三,对未排序序列进行遍历,将扫描到的每个元素插入有序序列的适当位置,保证有序序列依然有序,那么直到所有数据完成，也就完成了排序
+    -->
+    <script>
+    //快速排序
+    //     let temp=[3,4,1,2,6,5]
+    //     const insertSort = array => {
+    //         let length = array.length;
+    //         let preIndex;
+    //         let current;
+    //         for(let i =1;i<array.length;i++) {
+    //           let preIndex = i-1;
+    //           current = array[i];
+    //           while(preIndex>=0&&array[preIndex]>current){
+    //               array[preIndex+1] = array[preIndex]
+    //               preIndex--
+    //           }
+    //           array[preIndex+1] = current
+    //         }
+    //     }
+    // console.log(insertSort(temp)) 
+    // 利用二分法实现插入排序
+    const insertSort = array=> array.reduce(insert,[])
+    const insert = (sortArray,value) =>{
+        //处理特殊情况
+        if(sortArray.length ==0){
+           sortArray.push(value)
+           return sortArray
+        }
+        // 比较两端极端值的情况
+        if(value<sortArray[0]) {
+            sortArray.unshift(value)
+            return sortArray
+        }
+        if(value>=sortArray[sortArray.length-1]) {
+            sortArray.push(value)
+            return sortArray
+        }
+        //二分查找
+        let i = 0;
+        let j = sortArray.length;
+        let mid;
+        while(i<j) {
+            mid = Math.floor((i+j)/2);
+            if(i ==mid) {
+                break
+            }
+            if(value<sortArray[mid]) {
+                j = mid
+            } else if(value===sortArray[mid]) {
+                i = mid;
+                break
+            } else {
+                i = mid
+            }
+        }
+        let midArr = [value];
+        let lastArray = sortArray.slice(i+1)
+        return  sortArray.slice(0,i+1).concat(midArr,lastArray)
+    }
+    </script>
+</body>
+</html>
