@@ -7,6 +7,56 @@
 </head>
 <body>
     <script>
+        // 对象浅拷贝
+        // function lightClone(origin){
+        //     if(typeof origin!=="object"||origin===null) {
+        //         throw new Error(origin +'is not a object')
+        //     }
+        //     let target = {}
+        //     for(let key in origin){
+        //         if(Object.prototype.hasOwnProperty.call(origin,key)){
+        //             target[key]=origin[key]
+        //         }
+        //     }
+        //     return target
+        // }
+
+
+        // 对象的深拷贝
+        // 一、简单实现
+        // 二、拷贝数组
+        // 三、处理循环引用 JSON无法解决循环引用的问题
+        // 四、引用丢失(处理循环引用时可以解决此问题)
+        // 五、拷贝symbol值
+        // 六、解决循环爆栈的问题
+
+        function deepClone(target,origin,hashMap) {
+            if (typeof origin !== "object" || origin === null) {
+                throw new Error(origin +'is not a object')
+            }
+            if(hashMap.has(origin)){
+                return hashMap.get(origin)
+            }
+            hashMap.set(origin,target)
+            for(key in origin) {
+                if(origin.hasOwnProperty(key)) {
+                    if(typeof origin[key]=="object"&& origin[key]!==null){
+                     if(Object.prototype.toString.call(origin[key])==="[object Array]"){
+                      target[key] = []
+                     } else {
+                      target[key] = {}
+                     }
+                     deepClone(target[key],origin[key], hashMap)
+                    } else {
+                      target[key] = origin[key]
+                    }
+                }
+            }
+
+
+
+        }
+
     </script>
 </body>
 </html>
