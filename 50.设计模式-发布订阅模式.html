@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 观察者模式
+    一、发布者，订阅者
+    二、订阅者拥有一个更新方法来接收变化
+    三、发布者收集订阅者,当状态变化时,通知订阅者
+    -->
+    <script>
+        // 观察者订阅器
+        class subscribe {
+            constructor() {
+                this.state = 0;
+                this.observes = []
+            }
+            getState() {
+              return this.state
+            }
+            setState(state) {
+                this.state = state
+                this.notify()
+            }
+            notify() {
+                this.observes.forEach(item=>{
+                    item.update()
+                })
+            }
+            attch(observe) {
+                this.observes.push(observe)
+            }
+        }
+        // 订阅者
+        class observe{
+            constructor(name,subscribe) {
+                this.name = name;
+                this.subscribe = subscribe
+                this.subscribe.attch(this)
+            }
+            update() {
+                console.log(`${this.name}:${this.subscribe.state}`)
+            }
+        }
+
+        var s = new subscribe()
+        var o1 = new observe('o1',s)
+        var o2 = new observe('o2', s)
+        var o3 = new observe('o3', s)
+
+        s.setState(1)
+
+        
+    </script>
+    
+</body>
+</html>

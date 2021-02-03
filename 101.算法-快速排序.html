@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 快速排序
+    快速排序的特点是分治 
+    1,首先选择一个基准点叫做pivot
+    2,把比基准点小的放在基准点左边,把比基准点大的放在基准点右边
+    3,针对左分区和右分区分别做前两步的操作
+    4,重复以上三步
+    -->
+    <script>
+       const quickSort = array => {
+           if(array.length<2) {
+               return array.slice()
+           }
+           
+           // 随机确定基准点
+           let pivot = Math.floor(Math.random()*array.length)
+           let left = [];
+           let middle =[];
+           let right = [];
+           for (let i = 0;i<array.length;i++) {
+               if(array[i]<array[pivot]) {
+                   left.push(array[i])
+               }else if(array[i]===array[pivot]) {
+                   middle.push(array[i])
+               } else {
+                   right.push(array[i])
+               }
+           }
+           return quickSort(left).concat(middle,quickSort(right))
+       }
+
+
+    </script>
+</body>
+</html>
