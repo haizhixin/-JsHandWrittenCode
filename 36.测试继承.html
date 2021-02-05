@@ -7,30 +7,97 @@
 </head>
 <body>
   <script>
-   class Person {
-     sayName() {
-       console.log(this)
-       this.getName()
-     }
-     getName() {
-       console.log(this,"我叫张亚强")
-     }
+      //一、原型链继承
+      function Super(name) {
+        this.name = name
+      }
+      function Sub() {
 
-     get name() {
-       return "张三"
-     }
-   }
+      }
+      Sub.prototype= new Super()
+      var sub = new Sub()
+      //缺点:继承的属性如果为引用类型会相互影响,构造函数的指向改变了
+         
+      //二、盗用构造函数继承
+      function Super(name) {
+          this.name = name
+      }
+      function Sub(age) {
+        this.Super(name)
+        this.age = age
+      }
+      var sub = new Sub()
+      //缺点:无法继承父类原型上的方法和属性,实例方法无法重载
+    
+      // 三、组合继承
+      function Super(name) {
+          this.name = name
+      }
+      function Sub(age) {
+          this.Super(name)
+          this.age = age
+      }
+      Sub.prototype = new Super()
+      var sub = new Super()
+      //缺点：父类构造函数执行两边,父类实例上的属性会被重复继承
+      // 四、原型式继承
+      var person = {
+          name:"zhangsan",
+      }
+      function Sub() {
+      }
+      function object(obj){
+          function F() {
+          }
+          F.prototype = obj
+          return new F
+      }
+      var sub = object(person)
+      // 缺点：原型上有共享属性时会互相影响
+      // 五、寄生式继承
+      var person = {
+          name:"lisi"
+      }
+      function Sub() {
 
-   var p = new Person()
-   console.log(Person.prototype.name)
+      }
+      function inherit(sub,Super) {
+          function F() {
 
-  //  class Bus extends Person {
-  //        getuu() {
-  //         super.getName()
-  //       }
-  //  }
-  
+          }
+          F.prototype = Super.prototype
+          var obj =new F()
+          obj.sayHi =  function() {
+              console.log("hi")
+          }
+          return obj
+      }
 
+      var sub = new Sub()
+      // 六、寄生式组合继承
+      function Super(name) {
+          this.name = name
+      }
+      function Sub() {
+          this.Super(name)
+          this.age = age
+      }
+      Sub.prototype = Object.create(Super.prototype)
+      Sub.prototype.constructor = Sub
+      var sub = new Sub()
+      // 七、extend继承
+      class Super {
+          constructor(name) {
+              this.name = name
+          }
+      }
+      class Sub extends Super {
+          constructor(name){
+              super(name)
+          }
+      }
+      let sub = new Sub()
+      // 八、混合继承
   </script>
 </body>
 </html>
