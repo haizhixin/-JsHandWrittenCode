@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        var obj = {};
+        var a = Symbol("a"); // 创建新的symbol类型
+        var b = Symbol.for("b"); // 从全局的symbol注册?表设置和取得symbol
+
+        obj[a] = "localSymbol";
+        obj[b] = "globalSymbol";
+        // console.log(obj,"dddd")
+        Object.defineProperty(obj,"sss",{
+            value:"333",
+            enumerable:false
+        })
+
+        var bb= Object.prototype.hasOwnProperty.call(obj,"sss")
+        console.log(bb,"bb")
+
+        // for(let key in obj) {
+        //     console.log(key,obj[key])
+        // }
+        // console.log(Reflect.ownKeys(obj)) 
+
+
+    </script>
+</body>
+</html>

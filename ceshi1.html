@@ -32,8 +32,6 @@
     //     }).catch(() => {
     //         console.log(3)
     //     })
-
-
    async function async1() {
        console.log("async1 start")
        await async2()
@@ -42,9 +40,7 @@
    async function async2() {
         console.log("async2") 
     }
-
     console.log('script start')
-
     setTimeout(function() {
         console.log('setTimeout')
     },0)
@@ -55,9 +51,7 @@
     }).then(function(){
         console.log('promise')
     })
-
     console.log("script end")
-
 // (async function() {
 //     console.log('start')
 //     const a = await 100
