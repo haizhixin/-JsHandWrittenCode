@@ -32,26 +32,7 @@
     //     }).catch(() => {
     //         console.log(3)
     //     })
-   async function async1() {
-       console.log("async1 start")
-       await async2()
-       console.log("async1 end")
-   }
-   async function async2() {
-        console.log("async2") 
-    }
-    console.log('script start')
-    setTimeout(function() {
-        console.log('setTimeout')
-    },0)
-    async1()
-    new Promise(function(resolve){
-        console.log('promise1')
-        resolve()
-    }).then(function(){
-        console.log('promise')
-    })
-    console.log("script end")
+   
 // (async function() {
 //     console.log('start')
 //     const a = await 100
@@ -62,6 +43,67 @@
 //     console.log("c",c)
 //     console.log("end")
 // })()
+//ES6提供了新的数据结构Set
+const s = new Set();
+[2,3,4,5,2,2].forEach(x=>s.add(x));
+
+for(let i of s) {
+    console.log(i)
+}
+const set = new Set([1,2,3,4,4,5])
+[...new Set(array)]
+[...new Set('abbbcs')].join('')
+
+Set.prototype.add()
+Set.prototype.delete()
+Set.prototype.has()
+Set.prototype.clear()
+
+s.has(1)
+s.has(2)
+s.has(3)
+s.delete(2)
+s.has(2)
+
+
+const items = new Set([1,2,3,4,5]);
+const array = Array.from(items);
+
+//数组去重
+function dedupe(array) {
+    return Array.from(new Set(array))
+}
+
+dedupe([1,1,2,3])
+
+Set.prototype.keys()// 返回键名的遍历器
+Set.prototype.values()//返回键值的遍历器
+Set.prototype.entries()//返回键值对的遍历器
+Set.prototype.forEach()// 使用回调函数遍历每个成员
+
+for(let item of set.entries()) {
+    console.log(item)
+}
+let set = new set([1,4,9])
+set.forEach((value,key)=>console.log(key+':'+value))
+//forEach(function(){},this)
+
+let set = new Set([1,2,3]);
+set = new Set([...set].map(val=>val*2));
+
+let set = new Set([1,2,3]);
+set new Set(Array.from(set,val=>val*2))
+
+const b = [3,4];
+
+const ws = new WeakSet(b);
+//WeakSet没有size属性,没有办法遍历它的成员
+//WeakSet的一个用处是储存DOM节点 而不用担心这些节点从文档移除时,会引发内存泄漏
+
+
+
+
+
 
 
 

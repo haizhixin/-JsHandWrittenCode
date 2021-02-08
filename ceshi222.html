@@ -6,76 +6,80 @@
     <title>Document</title>
 </head>
 <body>
-    <!-- 
-    实例属性
-    原型方法
-    静态属性
-    静态方法
+   <script>
+    // new 的实现
+    var mynew = function (Ctor) {
+        var obj = {}
+        obj.__proto__
+    }
 
-    特点:类必须使用new 调用 否则会报错
-    construtctor中必须返回一个对象 如果返回一个全新的对象 就不是构造函数的实例
+    // call的实现
+    // var myCall = Function.prototype.call || function() {
+    //     if(typeof this!=="function") {
+    //        throw new TypeError(this+"is not a function")
+    //     }
+    //     var fn = this;
+    //     var context = arguments[0];
+    //     context = context?context:window
+    //     var args = []
+    //     for(var i = 1;i<arguments.length;i++){
+    //      args.push('arguments[' + i + ']')
+    //     }
+    //     var result = eval('context.fn('+args+')')
+    //     delete context.fn
+    //     return result
+    // }
+    // var myCall = Function.prototype.call || function() {
+    //     if(typeof this!=='function') {
+    //         throw new TypeError(this+'is not a function')
+    //     }
+    //     var fn = this;
+    //     var context = arguments[0]
+    //     context = context?context:window
+    //     var args = []
+    //     for(var i =1;i<arguments.length;i++) {
+    //     args.push(arguments[i])
+    //     }
+    //     var result = context.fn(...args)
+    //     delete context.fn
+    //     return result
+    // }
 
+    // apply的实现
+    // var myApply = Function.prototype.apply || function() {
+    //     if(typeof this!=='function') {
+    //         throw new TypeError(this+'is not a function')
+    //     }
+    //     var fn = this;
+    //     var context = arguments[0]
+    //     context = context?context:window
+    //     var args = []
+    //     for(var i =1;i<arguments.length;i++) {
+    //     args.push(arguments[i])
+    //     }
+    //     var result = context.fn(args)
+    //     delete context.fn
+    //     return result
+    // }
 
+    // bind的实现
+    var mybind = Function.prototype.bind||function() {
+        if(typeof this!=='function') {
+            throw new TypeError(this+'is not a function')
+        }
+        var fn = this;
+        var context = arguments[0]
+        context = context?context:window
+        var args = []
+        for(var i =1;i<arguments.length;i++) {
+          args.push(arguments[i])
+        }
+        return function() {
+            return fn.apply(context,args.concat([].slice.call(arguments)))
+        }
+    }
 
-     -->
-    <script>
-
-        // var obj = {};
-        // var a = Symbol("a"); // 创建新的symbol类型
-        // var b = Symbol.for("b"); // 从全局的symbol注册?表设置和取得symbol
-
-        // obj[a] = "localSymbol";
-        // obj[b] = "globalSymbol";
-        // // console.log(obj,"dddd")
-        // Object.defineProperty(obj,"sss",{
-        //     value:"333",
-        //     enumerable:false
-        // })
-
-        // var bb= Object.prototype.hasOwnProperty.call(obj,"sss")
-        // console.log(bb,"bb")
-
-        // for(let key in obj) {
-        //     console.log(key,obj[key])
-        // }
-        // console.log(Reflect.ownKeys(obj)) 
-
-//         class Point {
-//   constructor(x, y) {
-//     // ...
-//   }
-
-//   toString() {
-//     // ...
-//   }
-// }
-
-// console.log(Object.keys(Point.prototype),"sss") 
-// // []
-// console.log(Object.getOwnPropertyNames(Point.prototype),"sss")
-// 新写法
-class Point {
-  constructor(x, y) {
-    this.x = x;
-    this.y = y;
-  }
-}
-
-class ColorPoint extends Point {
-  constructor(x, y, color) {
-    this.color = color; // ReferenceError
-    super(x, y);
-    this.color = color; // 正确
-  }
-}
-console.log(Object.getPrototypeOf(ColorPoint),Object.getPrototypeOf(ColorPoint) === Point)
-
-
-
-
-
-
-
-    </script>
+    // object.create()的实现
+   </script>
 </body>
 </html>
