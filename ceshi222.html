@@ -61,25 +61,12 @@
     //     delete context.fn
     //     return result
     // }
-
-    // bind的实现
-    var mybind = Function.prototype.bind||function() {
-        if(typeof this!=='function') {
-            throw new TypeError(this+'is not a function')
-        }
-        var fn = this;
-        var context = arguments[0]
-        context = context?context:window
-        var args = []
-        for(var i =1;i<arguments.length;i++) {
-          args.push(arguments[i])
-        }
-        return function() {
-            return fn.apply(context,args.concat([].slice.call(arguments)))
-        }
+    // new的实现
+    var myNew = function () {
+        
     }
 
-    // object.create()的实现
+
    </script>
 </body>
 </html>

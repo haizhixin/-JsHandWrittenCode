@@ -8,12 +8,24 @@
 <body>
     <!-- object.Create创建一个对象为其指定其原型 -->
     <script>
-     function createObject(obj) {
-         function F() {
-         }
-         F.prototype = obj;
-         F.prototype.constructor=F
-         return new F()
+     Object.myCreate = function(proto,propertyObject =undefined) {
+         if(propertyObject ===null || typeof propertyObject !=="object") {
+             throw new TypeError(propertyObject +'is not a Object') 
+         } else {
+             function F() {
+                 
+             }
+             F.prototype = proto
+             var obj = new F();
+             if(propertyObject !==undefined) {
+                 Object.defineProperty(obj,propertyObject)
+             }
+             if(proto ===null) {
+                 //创建一个没有原型对象的对象 Object.create(null)
+                 obj.__proto__ = null
+             }
+             return obj
+         } 
      }
       
     </script>

@@ -7,24 +7,10 @@
 </head>
 <body>
     <script>
-        // 简易版
-        Function.prototype.bind =function(context,...args) {
-             if(typeof this !== "function") {
-                 throw new TypeError('Type Error')
-             }
-             // 复制一个函数
-             var self = this;
-             return function F() {
-                 if(this instanceof F) {
-                     new self(...args,...arguments)
-                 } else {
-                     self.apply(context,[...args,...arguments])
-                 }
-             }
-        }
+    
 
         // 复杂版
-        Function.prototype.mybind = function (context) {
+        Function.prototype.mybind =Array.prototype.bind|| function (context) {
             if(typeof this!== "function") {
                 throw new TypeError("Type Error")
             }
@@ -41,14 +27,26 @@
                 let result = fn.apply(this instanceof FNop?this:context,arr)
                 return result
             }
+            
             FNop.prototype = this.prototype;
             fnbind.prototype = new Fn()
-            // fnbind.prototype = this.prototype;
             return fnbind
         }
 
-
-        // 软绑定
+        //利用Object.create()的实现方式
+        //Function.prototype.bind = Array.prototype.bind|| function (context, ...args) {
+        //     if (typeof this !== "function") {
+        //       throw new Error("this must be a function");
+        //     }
+        //     var self = this;
+        //     var fbound = function () {
+        //         self.apply(this instanceof self ? this : context, args.concat(Array.prototype.slice.call(arguments)));
+        //     }
+        //     if(this.prototype) {
+        //       fbound.prototype = Object.create(this.prototype);
+        //     }
+        //     return fbound;
+        // }
        
 
 

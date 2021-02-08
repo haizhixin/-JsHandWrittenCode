@@ -44,61 +44,78 @@
 //     console.log("end")
 // })()
 //ES6提供了新的数据结构Set
-const s = new Set();
-[2,3,4,5,2,2].forEach(x=>s.add(x));
+// const s = new Set();
+// [2,3,4,5,2,2].forEach(x=>s.add(x));
 
-for(let i of s) {
-    console.log(i)
-}
-const set = new Set([1,2,3,4,4,5])
-[...new Set(array)]
-[...new Set('abbbcs')].join('')
-
-Set.prototype.add()
-Set.prototype.delete()
-Set.prototype.has()
-Set.prototype.clear()
-
-s.has(1)
-s.has(2)
-s.has(3)
-s.delete(2)
-s.has(2)
+// for(let i of s) {
+//     console.log(i)
+// }
+// const items = new Set([1,2,3,4,5]);
+// const array = Array.from(items);
 
 
-const items = new Set([1,2,3,4,5]);
-const array = Array.from(items);
-
-//数组去重
-function dedupe(array) {
-    return Array.from(new Set(array))
-}
-
-dedupe([1,1,2,3])
-
-Set.prototype.keys()// 返回键名的遍历器
-Set.prototype.values()//返回键值的遍历器
-Set.prototype.entries()//返回键值对的遍历器
-Set.prototype.forEach()// 使用回调函数遍历每个成员
-
-for(let item of set.entries()) {
-    console.log(item)
-}
-let set = new set([1,4,9])
-set.forEach((value,key)=>console.log(key+':'+value))
-//forEach(function(){},this)
-
-let set = new Set([1,2,3]);
-set = new Set([...set].map(val=>val*2));
-
-let set = new Set([1,2,3]);
-set new Set(Array.from(set,val=>val*2))
-
-const b = [3,4];
-
-const ws = new WeakSet(b);
 //WeakSet没有size属性,没有办法遍历它的成员
 //WeakSet的一个用处是储存DOM节点 而不用担心这些节点从文档移除时,会引发内存泄漏
+
+// var aa = {
+//     name:"张三",
+//     age:1
+// }
+// var obj = new Proxy(aa,{
+//     get:function(target,propKey,receiver){
+//         console.log(target,propKey,receiver,"sss")
+//         return Reflect.get(target,propKey,receiver)
+//     },
+//     set:function(target,propKey,value,receiver) {
+//         console.log(`setting ${propKey}!`);
+//         return Reflect.set(target,propKey,value,receiver)
+//     }
+// })
+
+// obj.age = 2
+// obj.age
+
+// var proxy = new Proxy(target,handler);//target参数表示所要拦截的对象 handler参数也是一个对象 用来定制拦截行为
+// var target = {};
+// var handler = {};
+// var proxy = new Proxy(target,handler);
+// proxy.a = "b";
+// target.a//b
+get(target,propKey,receiver)
+set(target,propKey,value,receiver)
+has(target,propKey)
+deleteProperty(target,propKey)
+ownKeys(target) Object.getOwnPropertyNames(proxy)
+Object.getOwnPropertySymbols(proxy) Object.keys(proxy) for...in循环 返回一个数组
+Object.keys(proxy) for...in循环 目标对象所有自身的属性和属性名
+Object.keys()返回目标对象自身的可遍历属性
+getOwnPropertyDescriptor(target,propKey) 
+Object.getOwnPropertyDescriptor(proxy,propKey)
+defineProperty(target,propKey,propDesc)拦截Object.defineProperty(proxy,propKey,PropDesc)
+Object.defineProperties(proxy,propDescs)返回一个布尔值
+preventExtensions(target)//拦截Object.preventExtensions(proxy)
+getPrototypeOf(target)Object.getPrototypeOf(proxy)返回一个对象
+isExtensible(target)拦截 Object.isExtensible(proxy)返回一个布尔值
+setPrototypeOf(target,proto)拦截 Object.setPrototypeOf(proxy,proto)返回一个布尔值
+apply(targe,object,args)拦截Proxy实例作为函数调用的操作proxy(...args) proxy.call()
+proxy.apply()
+construct(target,args)拦截Proxy实例作为构造函数调用的操作 比如new Proxy(..args)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
