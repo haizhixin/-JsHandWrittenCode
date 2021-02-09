@@ -1,7 +1,2 @@
-import "./b.js"
-// console.log(foo,"foo")
-
-// setTimeout(function(){
-//  console.log(foo,"2s后")
-// },2000)
-
+import * as my from "./b.js"
+console.log(my, "bar")

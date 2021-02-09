@@ -62,11 +62,22 @@
     //     return result
     // }
     // new的实现
-    var myNew = function () {
-        
+    function Person() {
+        this.name = "zhangsan";
+        return {}
     }
 
+    var obj = new Person()
 
-   </script>
+    console.log(obj,"obj")
+  
+
+    function bb() {
+
+    }
+
+    console.log(typeof bb)
+    console.log(null instanceof Object)
+  </script>
 </body>
 </html>
