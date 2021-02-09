@@ -6,7 +6,9 @@
     <title>Document</title>
 </head>
 <body>
+    <script type="module" src="./a.js"></script>
     <script>
+
     //   Promise.resolve().then(()=>{
     //       console.log(1)
     //   }).catch(()=>{
@@ -81,25 +83,9 @@
 // var proxy = new Proxy(target,handler);
 // proxy.a = "b";
 // target.a//b
-get(target,propKey,receiver)
-set(target,propKey,value,receiver)
-has(target,propKey)
-deleteProperty(target,propKey)
-ownKeys(target) Object.getOwnPropertyNames(proxy)
-Object.getOwnPropertySymbols(proxy) Object.keys(proxy) for...in循环 返回一个数组
-Object.keys(proxy) for...in循环 目标对象所有自身的属性和属性名
-Object.keys()返回目标对象自身的可遍历属性
-getOwnPropertyDescriptor(target,propKey) 
-Object.getOwnPropertyDescriptor(proxy,propKey)
-defineProperty(target,propKey,propDesc)拦截Object.defineProperty(proxy,propKey,PropDesc)
-Object.defineProperties(proxy,propDescs)返回一个布尔值
-preventExtensions(target)//拦截Object.preventExtensions(proxy)
-getPrototypeOf(target)Object.getPrototypeOf(proxy)返回一个对象
-isExtensible(target)拦截 Object.isExtensible(proxy)返回一个布尔值
-setPrototypeOf(target,proto)拦截 Object.setPrototypeOf(proxy,proto)返回一个布尔值
-apply(targe,object,args)拦截Proxy实例作为函数调用的操作proxy(...args) proxy.call()
-proxy.apply()
-construct(target,args)拦截Proxy实例作为构造函数调用的操作 比如new Proxy(..args)
+
+
+
 
 
 
