@@ -7,16 +7,47 @@
 </head>
 <body>
     <script>
-        function exector(resolve,reject) {
+       
+        class Promise {
+          status = "pending";
+          value = "";
+          reason="";
 
-        }
-      class Promise {
-          
           constructor(executor){
+            this.fulfilledFnCallbacks = []
+            this.rejectedFnCallbacks =[]
                 
           }
-          then() {
+          resolve = (data) =>{
+              if(this.status==="pending"){
+                  this.status = "fulfilled";
+                  this.value = data;
+              }
+              this.fulfilledFnCallbacks(fn=>{
+                  fn(this.value)
+              })
 
+          }
+          reject =  (data) =>{
+              if(this.status ==="pending"){
+                this.status = "rejected"  
+                this.reason = data
+              }
+              this.fulfilledFnCallbacks.forEach(fn=>{
+                  fn(this.reason)
+              })
+          }
+
+          then(onFulfilled,onRejected) {
+              if(this.status==='fulfilled'){
+               onFulfilled(this.value)
+              }
+              
+              if(this.status==='rejected'){
+               onRejected(this.reason)
+              }
+              this.fulfilledFnCallbacks.push(onFulfilled);
+              this.rejectedFnCallbacks.push(onFulfonRejectedilled);
           }
           catch(){
 
