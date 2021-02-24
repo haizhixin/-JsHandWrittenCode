@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+
+   .container{
+     display: flex;
+   }
+   .main{
+     background-color:red; 
+     flex-grow: 1;
+    order: 2;
+   }
+   .left{
+     background-color: black;
+     order: 1;
+     width: 200px;
+   }
+   .right{
+     background-color: aqua;
+     width: 200px;
+    order: 3;
+   }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="main">中间</div>
+    <div class="left">左侧</div>
+    <div class="right">右侧</div>
+  </div>
+</body>
+</html>
