@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			header {
+				width: 100%;
+				height: 100px;
+				border: 1px solid red;
+			}
+			.top-navigation {
+				border: 1px solid red;
+			}
+			.news-page {
+				border: 4px solid blue;
+			}
+			.page-section-news {
+				border:10px solid green;
+			}
+			.title {
+				border:3px dashed #DAA520;
+			}
+			.news-article {
+				border: 6px double greenyellow;
+			}
+			.article-title {
+				border: 5px solid hotpink;
+			}
+			.intro {
+				border: 5px solid hotpink;
+			}
+			.content {
+				border: 2px solid slateblue;
+			}
+			.article-side-notes {
+				border: 2px solid slateblue;
+			}
+			.article-foot-notes {
+				border: 2px solid slateblue;
+			}
+			.time {
+				border: 2px solid #B373DA;
+			}
+			.section-footer {
+				border: 2px dotted grey;
+			}
+			.page-footer {
+				border: 3px solid lightseagreen;
+			}
+		</style>
+	</head>
+
+	<body>
+		<!--页头应该用header-->
+		<header>
+			<!--页头标题的文字较大，一般推荐使用h1标签-->
+			<h1>My page title</h1>
+		</header>
+		<!--接下来就是导航条-->
+		<nav class="top-navigation">
+			<!--清单部分一般用ul 或 ol-->
+			<ul>
+				<li class="nav-item"><a href="#home">Home</a></li>
+				<li class="nav-item"><a href="#home">News</a></li>
+				<li class="nav-item"><a href="#home">About</a></li>
+			</ul>
+		</nav>
+		<!--页面中主要的部分一般用main-->
+		<main class="news-page" role="main">
+			<!--页面中章节部分应该用一个章节标签-->
+			<section class="page-section-news">
+				<!--页面中章节部分中的标题部分属于页面的一部分故用h2-->
+				<header>
+					<h2 class="title">All news articles</h2>
+				</header>
+
+				<!--文章标签中包含一个头部用于解释说明文章的主要信息-->
+				<article class="news-article">
+					<header>
+						<!--一个文章的标题不属于整个页面的结构 不应该使用任何的标题标签-->
+						<div class="article-title">Good article</div>
+						<!--small用于解释一些不太重要的信息-->
+						<small class="intro">Introduction sub-title</small>
+					</header>
+					<!--一段或文章的主要内容是没有语义元素-->
+					<div class="content">
+						<p>This is a good example for HTML semantics</p>
+					</div>
+					<!--不太重要的信息在文章内容的一边显示-->
+					<aside class="article-side-notes">
+						<p>I think I'm more on the side and should not receive the main credits</p>
+					</aside>
+					<!--一段或文章也可以有自己的底部部分-->
+					<footer class="article-foot-notes">
+						<!--时间戳-->
+						<p>This article was created by David <time datetime="2014-01-01 00:00" class="time">1 month ago</time></p>
+					</footer>
+				</article>
+				<!--一个部分应该有他自己的底部-->
+				<footer class="section-footer">
+					<p>Related sections: Events, Public Holidays</p>
+				</footer>
+			</section>
+		</main>
+		<!--每个页面有对应的全局底部-->
+		<footer class="page-footer">
+			Copyright 2014
+		</footer>
+	</body>
+
+</html>
