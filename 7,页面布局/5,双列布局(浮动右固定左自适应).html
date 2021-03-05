@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>右固定左自适应</title>
+    <style>
+        .wrap::after{
+            content: "";
+            display: block;
+            clear: both;
+        }
+        .wrap .left{
+            float: right;
+            width: 200px;
+            height: 500px;
+            background-color: red;
+        }
+        .wrap .right{
+            margin-right:200px;
+            height: 500px;
+            background-color: blue; 
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="left">右侧</div>
+        <div class="right">左侧</div>
+    </div>
+</body>
+</html>
