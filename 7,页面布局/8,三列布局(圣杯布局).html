@@ -7,19 +7,21 @@
   <title>Document</title>
   <style>
     .containter{
+        /* 父容器两边用padding */
       padding: 0 200px 0 200px;
     }
     .main,.left,.right{
       /* border: 1px solid red; */
       float: left;
       min-height: 100px;
-      position: relative;
+      
     }
     .main{
       width: 100%;
       background-color: aqua;
     }
     .left{
+      position: relative;
       background-color: red;
       width: 200px;
       margin-left:-100%;
@@ -29,11 +31,15 @@
       background-color: blueviolet;
       width: 200px;
       margin-left: -200px;
-      /* right: -200px; */
     }
   </style>
 </head>
 <body>
+    <!-- 圣杯布局和双飞翼布局
+        1,使用float布局
+        2,两侧使用margin负值,以便和中间内容横向重叠
+        3,防止中间内容被两侧覆盖,一个用padding一个用margin
+    -->
   <div class="containter">
     <div class="main">main</div>
     <div class="left">left</div>
