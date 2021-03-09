@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 防抖 -->
+    <!-- -->
+    
+
+    <!-- 节流 -->
+    <script>
+        //用时间戳
+        const throttle = function(fn,await) {
+            let cur = 0;
+            return function() {
+              let context = this;
+              let args = Array.prototype.slice.call(arguments)
+              let now = new Date().getTime();
+              if(now - cur>=await){
+                  fn.apply(context,args)
+                  cur = new Date().getTime()
+              }
+            }
+        }
+
+        const throttle = function(fn,await) {
+            let time;
+            return function() {
+                let context = this;
+                let args = Array.prototype.slice.call(arguments)
+                if(time) {
+                    return
+                }
+                time = setTimeout(()=>{
+                    fn.apply(context,args)
+                    time = null
+                },await)
+
+            }
+        }
+
+     
+
+    </script>
+</body>
+</html>
