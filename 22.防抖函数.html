@@ -21,6 +21,9 @@
                 if (!timer) {
                     fn.apply(context, args)
                 }
+                if (timeout) {
+                    clearTimeout(timeout);
+                }
                 timer = setTimeout(() => {
                     timer = null
                 }, await)
@@ -39,9 +42,6 @@
                 }, await)
             }
         }
-
-
-
 
         // 立即执行
         // function debounce(fn) {
