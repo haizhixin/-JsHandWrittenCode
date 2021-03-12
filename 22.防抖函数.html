@@ -15,7 +15,7 @@
         function debounce(await, fn) {
             let timer = null;
             // 立即执行 事件第一次触发就会执行，指定的时间内如果再有事件不执行了。
-            return () => {
+            return  function() {
                 const context = this;
                 const args = Array.prototype.slice.call(arguments);
                 if (!timer) {
@@ -33,7 +33,7 @@
         // 延迟执行 事件最后一次触发后指定的时间内没有事件触发，才会执行，如果有重新延迟指定的时间
         function debounce(await, fn) {
             let timer = null;
-            return () => {
+            return function(){
                 const context = this;
                 const args = Array.prototype.slice.call(arguments)
                 clearTimeout(timer)
@@ -43,48 +43,29 @@
             }
         }
 
-        // 立即执行
-        // function debounce(fn) {
-        //     let timeout;
-        //     return function() {
-        //         let context = this;
-        //         let args = arguments;
+     //  综合版
 
-        //         if (timeout) {
-        //             clearTimeout(timeout);
-        //         }
+     // 简单的防抖动函数
+    const debounce = (func, wait, immediate) => {
+    let timeout
+    return function () {
+        const context = this
+        const args = arguments   
+        const callNow = immediate & !timeout
 
-        //         timeout = setTimeout(() => {
-        //             timeout = null;
-        //         }, 100)
-        //         if (!timeout) {
-        //             fn.apply(context, args)
-        //         }
-        //     }
-        // }
-        // function debounce(fn, immediate) {
-        //     let timeout;
-        //     return function() {
-        //         let context = this;
-        //         let args = arguments;
+        timeout && clearTimeout(timeout)
 
-        //         if (timeout) {
-        //             clearTimeout(timeout)
-        //         }
-        //         if (immediate) {
-        //             timeout = setTimeout(() => {
-        //                 timeout = null
-        //             }, 100)
-        //             if (!timeout) {
-        //                 fn.apply(context, args)
-        //             }
-        //         } else {
-        //             timeout = setTimeout(() => {
-        //                 fn.apply(context, args)
-        //             }, 100)
-        //         }
-        //     }
-        // }
+        timeout = setTimeout(function() {
+            timeout = null
+            if (!immediate) func.apply(context, args)
+        }, wait)
+
+        if (callNow) func.apply(context, args)
+    }
+}
+
+
+       
     </script>
 </body>
 

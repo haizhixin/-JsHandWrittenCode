@@ -17,21 +17,35 @@
         // 时间戳
         // 立即执行,但是当事件停止后没有办法再次执行事件
         function throttle(await, fn) {
-            let previous = Date.now().getTime();
+            let previous = new Date().getTime();
             return function() {
                 const context = this;
                 const args = Array.prototype.slice.call(arguments)
 
                 let now = new Date().getTime();
-                if (now - previous > await) {
+                if (now - previous >=await) {
                     fn.apply(context, args)
                     previous = now;
                 }
             }
         }
+    //     const throttle = (func, wait) => {
+    //     let startTime = 0
+    //     return function() {
+    //         let handleTime = +new Date()
+    //         let context = this
+    //         const args = arguments
+
+    //         if (handleTime - startTime >= wait) {
+    //             func.apply(context, args)
+    //             startTime = handleTime
+    //         }
+    //     }
+    // }
+
 
         // 定时器
-        // 延迟执行,当事件停止后仍然会执行一次
+        //
         function throttle(await, fn) {
             let timeout = null;
             return function() {
@@ -47,6 +61,21 @@
             }
 
         }
+
+//         const throttle = (func, wait) => {
+//          let timeout 
+
+        //     return function () {
+        //         const context = this
+        //         const args = arguments
+        //         if (!timeout) {
+        //             timeout = setTimeout(function() {
+        //                 func.apply(context, args)
+        //                 timeout = null
+        //           }, wait)
+        //         }
+        //     }
+        // }
     </script>
 </body>
 
