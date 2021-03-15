@@ -7,39 +7,52 @@
 </head>
 <body>
    <script>
+       Function.prototype.myApply = Function.prototype.apply || function() {
+           if(typeof this !== "function") {
+               throw TypeError(this+"is not a function")
+           }
+           var context  = arguments[0]
+           context = context ? context : window
+           var args = []
+           for(var i = 1;i<arguments.length;i++) {
+               args.push(arguments[i])
+           }
+           var result = context.fn(args)
+           delete context.fn
+           return result
+       }
+
+      
+
+
+
+
+
   
 
-    // call的实现
-    // var myCall = Function.prototype.call || function() {
-    //     if(typeof this!=="function") {
-    //        throw new TypeError(this+"is not a function")
-    //     }
-    //     var fn = this;
-    //     var context = arguments[0];
-    //     context = context?context:window
-    //     var args = []
-    //     for(var i = 1;i<arguments.length;i++){
-    //      args.push('arguments[' + i + ']')
-    //     }
-    //     var result = eval('context.fn('+args+')')
-    //     delete context.fn
-    //     return result
-    // }
-    // var myCall = Function.prototype.call || function() {
-    //     if(typeof this!=='function') {
-    //         throw new TypeError(this+'is not a function')
-    //     }
-    //     var fn = this;
-    //     var context = arguments[0]
-    //     context = context?context:window
-    //     var args = []
-    //     for(var i =1;i<arguments.length;i++) {
-    //     args.push(arguments[i])
-    //     }
-    //     var result = context.fn(...args)
-    //     delete context.fn
-    //     return result
-    // }
+
+
+
+
+
+
+  
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     // apply的实现
     // var myApply = Function.prototype.apply || function() {
