@@ -7,38 +7,24 @@
 </head>
 <body>
     <script>
-        // //fn.apply(this,[a1,a2,a3,a4])
-        // Function.prototype.apply= function(context,args) {
-        //     if(typeof this !== 'function') {
-        //         throw new TypeError("Type Error")
-        //     }
-        //     const fn = Symbol('fn')
-        //     context[fn] = this;
-        //     var result = context[fn](...args);
-        //     delete context[fn]
-        //     return result
-        // }
+        Function.prototype.myApply = Function.prototype.apply || function() {
+           if(typeof this !== "function") {
+               throw new TypeError(this+"is not a function")
+           }
+          
+           var context  = arguments[0]
+           context = context ? Object(context) : window
+           context.fn = this;
+           var args = []
+           for(var i = 1;i<arguments.length;i++) {
+               args.push(arguments[i])
+           }
+           var result = context.fn(args)
+           delete context.fn
+           return result
+       }
 
-        // ES3的写法
-        Function.prototype.apply2 = function(context,args) {
-            if(typeof this !=="function") {
-                throw new TypeError("Type Error")
-            }
-            context = context ? Object(context) : window;
-            context.fn = this;
-            var result;
-            if(!args) {//考虑第二个参数不存在的情况
-              result= context.fn()
-            } else{
-              var args = [];
-              for(var i = 0,len = args.length;i<len;i++) {
-                args.push('args['+i+']')
-              }
-              result = eval('context.fn('+args+')')
-            }
-            delete context.fn
-            return result;
-        }
+        
 
         // ES6写法
         Function.prototype.apply2 = function(context,args) {
@@ -56,7 +42,9 @@
             delete context.fn
             return result
         }
-        
+
+
+    
  
 
 

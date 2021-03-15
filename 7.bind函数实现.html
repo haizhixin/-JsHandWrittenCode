@@ -7,31 +7,27 @@
 </head>
 <body>
     <script>
-    
-
         // 复杂版
-        Function.prototype.mybind =Array.prototype.bind|| function (context) {
-            if(typeof this!== "function") {
-                throw new TypeError("Type Error")
-            }
-            var args = [].slice.call(arguments);
-            var fn = this;
-            var FNop = function () {
-
-            }
-            var fnbind = function () {
-                var arr = args.concat([].slice.call(arguments));
-
-                // 不用这一行 因为 apply方法如果 传入的是基本类型，会包装成对象
-                // context = context ? Object(context): window;
-                let result = fn.apply(this instanceof FNop?this:context,arr)
-                return result
-            }
+        // Function.prototype.mybind =Function.prototype.bind|| function (context) {
+        //     if(typeof this!== "function") {
+        //         throw new TypeError("Type Error")
+        //     }
+        //     var args = [].slice.call(arguments,1);
+        //     var fn = this;
             
-            FNop.prototype = this.prototype;
-            fnbind.prototype = new Fn()
-            return fnbind
-        }
+        //     var fnbind = function () {
+        //         var arr = args.concat([].slice.call(arguments));
+
+        //         // 不用这一行 因为 apply方法如果 传入的是基本类型，会包装成对象
+        //         // context = context ? Object(context): window;
+        //         let result = fn.apply(this instanceof FNop?this:context,arr)
+        //         return result
+        //     }
+        //     var FNop = function () {}
+        //     FNop.prototype = this.prototype;
+        //     fnbind.prototype = new FNop()
+        //     return fnbind
+        // }
 
         //利用Object.create()的实现方式
         //Function.prototype.bind = Array.prototype.bind|| function (context, ...args) {
@@ -47,6 +43,20 @@
         //     }
         //     return fbound;
         // }
+
+        function fn () {
+
+        }
+        var person = {
+
+        }
+
+      fn.prototype = Object.create(person)
+      console.log(fn.prototype)
+
+
+
+
        
 
 

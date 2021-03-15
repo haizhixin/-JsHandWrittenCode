@@ -105,7 +105,6 @@
             this.age = "13"
         }
         inherit(SubType,SubperType);
-
         var sub = new SubType()
 
         // 缺点：1.无法传递参数
@@ -125,24 +124,45 @@
         SubType.prototype = Object.create(SubperType.prototype);
         SubType.prototype.constructor = SubType;
         var sub = new SubType()
-        // 混入方式继承多个对象
-        function SubperType() {
 
+
+       //   // 七、extend继承
+    //   class Super {
+    //       constructor(name) {
+    //           this.name = name
+    //       }
+    //   }
+    //   class Sub extends Super {
+    //       constructor(name){
+    //           super(name)
+    //       }
+    //   }
+    //   let sub = new Sub()
+      // 八、混合继承
+        class Vehicle {}
+        let FooMixin = (Superclass) => class extends Superclass {
+            foo() {
+                console.log('foo')
+            }
         }
-
-        function otherSubperType() {
-            
+        let BarMixin = (Superclass) => class extends Superclass {
+                bar() {
+                    console.log('bar')
+                }
+            }
+        let BazMixin = (Superclass) => class extends Superclass {
+                baz() {
+                    console.log('baz')
+                }
         }
-
-        function subType () {
-
+        function mix(BaseClass,...Mixins) {
+            return Mixins.reduceRight((accumulator,current)=>{
+            console.log(current, "current")
+            return current(accumulator)
+            },BaseClass)
         }
-        subType.prototype = Object.create(SubperType.prototype)
-        Object.assign(subType.prototype,SubperType.prototype)
-        var sub = new subType()
-        // extends继承
-      
-
+        var aa =mix(Vehicle, FooMixin, BarMixin, BazMixin)
+        console.log(aa,"aa")
 
 
     </script>
