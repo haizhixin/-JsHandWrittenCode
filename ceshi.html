@@ -20,28 +20,55 @@
         // 8,处理栈溢出
 
         function deepClone(source,hashMap = new WeakMap()) {
-            if(typeof source !=="object" || source===null) {
+            if((typeof source !=="object"&&typeof source !== "function")|| source===null) {
                 throw new TypeError(source+"is not a Oject")
+            }
+            if(source.constructor === Date) {
+              return new Date(source)
+            }
+
+            if(source.constructor === RegExp) {
+              return new RegExp(source)
+
             }
             if(hashMap.has(source)) {
                 return hashMap.get(source)
             }
-            var target = Array.isArray(source)?[]:{};
+            var DesObj = Object.getOwnPropertyDescriptors(source)
+            var target = Object.create(Object.getPrototypeOf(source),DesObj)
             hashMap.set(source,target)
-            for(let key in source) {
-                if(Object.prototype.hasOwnProperty.call(source,key)){
-                    if(typeof source[key] ==='object' && source[key]!==null){
-                        target[key] = deepClone(source[key],hashMap)
-                    } else {
-                        target[key] = source[key]
-                    }
+            //Reflect.ownKeys()===Object.getOwnpropertySymbols + Object.getOwnPropertyNames
+            Reflect.ownKeys(source).forEach(key=>{
+                if (typeof source[key] === 'object' && source[key] !== null) {
+                    target[key] = deepClone(source[key], hashMap)
+                } else {
+                    target[key] = source[key]
                 }
-
-            }
-
+            })
             return target
 
         }
+
+
+        function Obj() {
+                this.func = function () { alert(1) };
+                this.obj = { a: 1 };
+                this.arr = [1, 2, 3];
+                this.und = undefined;
+                this.reg = /123/;
+                this.date = new Date(0);
+                this.NaN = NaN;
+                this.infinity = Infinity;
+                this.sym = Symbol(1);
+            }
+            let obj1 = new Obj();
+            Object.defineProperty(obj1, 'innumerable', {
+                enumerable: false,
+                value: 'innumerable'
+            });
+
+            const aa = deepClone(obj1);
+            console.log(aa, obj1, aa == obj1);
 
     </script>
 </body>
