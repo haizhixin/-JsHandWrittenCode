@@ -51,7 +51,7 @@
     return function () {
         const context = this
         const args = arguments   
-        const callNow = immediate & !timeout
+        const callNow = immediate && !timeout
 
         timeout && clearTimeout(timeout)
 
