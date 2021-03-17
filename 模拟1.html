@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 第二题
+        // 闭包可以实现 高阶函数 
+        // 闭包的原理：在词法作用域的规则下，一个外部函数执行返回一个内部函数
+        // 该内部函数被调用时可以访问其外部函数中的变量，对于这些在外部函数执行完后没有
+        // 销毁的变量的集合称之为外部函数的闭包
+        // 防抖 节流函数 函数柯理化 
+        // 应用场景 模块封装防止变量污染 在循环中创建闭包防止取到意外值
+
+        // 第三题
+        // 不会
+
+
+        // 第四题
+        // function curried(fn,len) {
+        //   let length = len || fn.length;
+        //   return function curry() {
+        //     let arg = Array.prototype.slice.call(arguments)
+        //     if(arg.length<len){
+        //       return function () {
+        //          curry.apply(null,arg.concat(Array.prototype.slice.call(arguments)))
+        //       }
+        //     } else {
+        //       return fn.apply(this,arg)
+        //     }
+        //   }
+        // }
+        // function fn(...args) {
+        //     return args.reduce(function(pre,cur){
+        //          return pre + cur
+        //     },0)
+        // }
+
+        // let add = curried(fn,3)
+        // add(1)(2)(3)
+
+        // // 第五题
+        // //实现链式调用
+        // class Chain {
+        //     add() {
+        //         return this
+        //     }
+        // }
+        // var obj = new Chain()
+        // obj.add().add().add()
+
+        // 第六题 
+        // 类数组拥有数组的索引下标和length属性但不具有数组原型上的方法
+        // Array.prototype.slice.call(arguments)
+        // [].slice.call(arguments)
+        // [...new Set(arguments)]
+
+        // 第7题
+
+    //    js引擎维护了一个执行栈 和任务队列 和 延迟任务队列
+    //    任务分为 宏任务 和 微任务
+
+    //    当js代码执行时 主线程代码会进入执行栈执行 执行过程中如果遇到异步任务
+    //    则放入任务队列中 如果是定时器函数则放入延迟任务队列 当时间到时 则推入任务队列中
+    //    当主线程代码执行完毕，则退出执行栈 执行栈清清空，开始去任务队列队头去取任务放入执行栈中执行
+    //    当执行完后 会去当前任务中读取微任务并执行，当微任务执行完成后，再去任务队列队头去取任务放入
+    //    执行栈中，不断循环这个过程 这就是事件循环
+    
+    // let al2 = {
+    //     length:4,
+    //     '-1':-1,
+    //     "0":0,
+    //     a:"a",
+    //     1:1
+    // }
+
+    // console.log(Array.from(al2))
+    // console.log(Array.prototype.slice.call(al2))
+    // let al3 = {
+    //     2:3,
+    //     3:4,
+    //     length:2,
+    //     push:Array.prototype.push
+    // }
+    
+    // al3.push(1)
+    // console.log(al3)
+    // al3.push(2)
+    // console.log(al3)
+
+    // js中任务分为两种 同步和异步 
+    // 同步任务放在主线程上排队依次执行 异
+    // 步任务会放在任务队列中 若有多个异步任务则需要在任务
+    // 任务队列中排队等地啊
+
+
+
+
+
+
+
+
+
+    </script>
+</body>
+</html>
