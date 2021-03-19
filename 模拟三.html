@@ -8,6 +8,27 @@
 </head>
 <body>
     <script>
+
+     // 中间件原理
+
+    app.use()
+    arr=[fn1,fn2,fn2,fn3,fn4]
+    
+    function compose() {
+
+        // return dispatch(0)
+        
+        function dispatch(context,next) {
+           
+            fn(context,function next(){
+                dispatch(i++)
+            })
+            
+        }
+
+    }
+
     </script>
 </body>
 </html>
+

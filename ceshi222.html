@@ -7,40 +7,9 @@
 </head>
 <body>
    <script>
+      
        
-    // apply的实现
-    // var myApply = Function.prototype.apply || function() {
-    //     if(typeof this!=='function') {
-    //         throw new TypeError(this+'is not a function')
-    //     }
-    //     var fn = this;
-    //     var context = arguments[0]
-    //     context = context?context:window
-    //     var args = []
-    //     for(var i =1;i<arguments.length;i++) {
-    //     args.push(arguments[i])
-    //     }
-    //     var result = context.fn(args)
-    //     delete context.fn
-    //     return result
-    // }
-    // new的实现
-    function Person() {
-        this.name = "zhangsan";
-        return {}
-    }
-
-    var obj = new Person()
-
-    console.log(obj,"obj")
-  
-
-    function bb() {
-
-    }
-
-    console.log(typeof bb)
-    console.log(null instanceof Object)
+    
   </script>
 </body>
 </html>
