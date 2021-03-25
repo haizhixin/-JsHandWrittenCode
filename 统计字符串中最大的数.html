@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function sum(str) {
+            if (str.length === 1) {
+                return str;
+            }
+            let map = {};
+            for (let i = 0; i < str.length; i++) {
+                if (map[str[i]]) {
+                    map[str[i]] += 1;
+                } else {
+                    map[str[i]] = 1;
+                }
+            }
+            let maxKey = "";
+            let maxValue = 0;
+            for (let key in map) {
+                if (map.hasOwnProperty(key)) {
+                    if (map[key] > maxValue) {
+                        maxKey = key;
+                        maxValue = map[key];
+                    }
+                }
+            }
+            return maxKey
+        }
+        console.log(sum("aaabbb"))
+
+    </script>
+</body>
+
+</html>

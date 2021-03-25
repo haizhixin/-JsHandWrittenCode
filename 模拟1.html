@@ -95,7 +95,59 @@
     // js中任务分为两种 同步和异步 
     // 同步任务放在主线程上排队依次执行 异
     // 步任务会放在任务队列中 若有多个异步任务则需要在任务
-    // 任务队列中排队等地啊
+    // 任务队列中排队
+
+
+    // 手写promise.all
+    PromiseMyall = Promise.all || function(arr) { 
+        if(!Array.isArray(arr)){
+            throw TypeError(arr +"is not a Array")
+        }
+        let result = [];
+        let index = 0;
+        return new Promise((resolve,reject)=>{
+            arr.forEach(item=> {
+                    Promise.resolve(item).then((data) => {
+                        result.push(data)
+                        index++
+                        if(index===arr.length) {
+                        return resolve(result)
+                        }
+                    }, err => {
+                    return Error(err)
+                    })
+                })
+        })
+    }
+
+    // 手写发布订阅模式
+
+    class Publish {
+        constructor () {
+            this.arr = []
+        }
+        dep (item) {
+            this.arr.push(item)
+        }
+        notice() {
+            this.arr.forEach(item=>{
+                item.update()
+            })
+        }
+    }
+
+    class Substrice {
+        constructor(name,obj) {
+            this.name = name
+            obj.dep(this)
+        }
+
+        update() {
+            console.log('我是谁')
+        }
+    }
+   
+
 
 
 

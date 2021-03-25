@@ -1,15 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
-   <script>
-      
-       
-    
-  </script>
+    <script>
+
+        function strSort(str) {
+            if (str.length === 1) {
+                return str
+            }
+            let arr = str.split("")
+            arr.sort(function (a, b) {
+                return a - b
+            })
+            console.log(arr, "arr")
+            // for (let i = 0; i < arr.length; i++) {
+            //     if (arr[i] !== arr[i + 1]) {
+            //         arr.splice(i, 0, ",")
+            //         i++
+            //     }
+            // }
+            return arr.join()
+        }
+        console.log(strSort("abaabccc"))
+
+
+
+    </script>
 </body>
+
 </html>
