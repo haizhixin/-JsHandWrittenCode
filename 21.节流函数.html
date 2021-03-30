@@ -1,82 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <script>
-        // 节流函数
-        // 当事件执行大于等于指定的时间后才执行，在这个时间间隔内函数不执行
+      // 节流函数
+      // 当事件执行大于等于指定的时间后才执行，在这个时间间隔内函数不执行
 
-        // 应用场景 页面滚动 拖拽
+      // 应用场景 页面滚动 拖拽
 
-        // 时间戳
-        // 立即执行,但是当事件停止后没有办法再次执行事件
-        function throttle(await, fn) {
-            let previous = new Date().getTime();
-            return function() {
-                const context = this;
-                const args = Array.prototype.slice.call(arguments)
+      // 时间戳
+      // 立即执行,但是当事件停止后没有办法再次执行事件
+      function throttle(await, fn) {
+        let previous = new Date().getTime();
+        return function () {
+          const context = this;
+          const args = Array.prototype.slice.call(arguments);
 
-                let now = new Date().getTime();
-                if (now - previous >=await) {
-                    fn.apply(context, args)
-                    previous = now;
-                }
-            }
-        }
-    //     const throttle = (func, wait) => {
-    //     let startTime = 0
-    //     return function() {
-    //         let handleTime = +new Date()
-    //         let context = this
-    //         const args = arguments
+          let now = new Date().getTime();
+          if (now - previous >= await) {
+            fn.apply(context, args);
+            previous = now;
+          }
+        };
+      }
+      //     const throttle = (func, wait) => {
+      //     let startTime = 0
+      //     return function() {
+      //         let handleTime = +new Date()
+      //         let context = this
+      //         const args = arguments
 
-    //         if (handleTime - startTime >= wait) {
-    //             func.apply(context, args)
-    //             startTime = handleTime
-    //         }
-    //     }
-    // }
+      //         if (handleTime - startTime >= wait) {
+      //             func.apply(context, args)
+      //             startTime = handleTime
+      //         }
+      //     }
+      // }
 
+      // 定时器
+      //
+      function throttle(await, fn) {
+        let timeout = null;
+        return function () {
+          const context = this;
+          const args = Array.prototype.slice.call(arguments);
+          if (timeout) {
+            return;
+          }
+          timeout = setTimeout(() => {
+            fn.apply(context, args);
+            timeout = null;
+          }, await);
+        };
+      }
 
-        // 定时器
-        //
-        function throttle(await, fn) {
-            let timeout = null;
-            return function() {
-                const context = this;
-                const args = Array.prototype.slice.call(arguments)
-                if (timeout) {
-                    return
-                }
-                timeout = setTimeout(() => {
-                    fn.apply(context, args)
-                    timeout = null
-                }, await)
-            }
+      //         const throttle = (func, wait) => {
+      //          let timeout
 
-        }
-
-//         const throttle = (func, wait) => {
-//          let timeout 
-
-        //     return function () {
-        //         const context = this
-        //         const args = arguments
-        //         if (!timeout) {
-        //             timeout = setTimeout(function() {
-        //                 func.apply(context, args)
-        //                 timeout = null
-        //           }, wait)
-        //         }
-        //     }
-        // }
+      //     return function () {
+      //         const context = this
+      //         const args = arguments
+      //         if (!timeout) {
+      //             timeout = setTimeout(function() {
+      //                 func.apply(context, args)
+      //                 timeout = null
+      //           }, wait)
+      //         }
+      //     }
+      // }
     </script>
-</body>
-
+  </body>
 </html>

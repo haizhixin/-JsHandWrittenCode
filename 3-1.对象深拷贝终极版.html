@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  <!-- 深拷贝 == 浅拷贝+递归
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- 深拷贝 == 浅拷贝+递归
     一、简单实现
     二、拷贝数组
     三、处理循环引用 JSON无法解决循环引用的问题
@@ -15,303 +15,292 @@
     六、解决循环爆栈的问题
   
   -->
-  <script>
-//     var a = {
-//     name: "muyiy",
-//     book: {
-//         title: "You Don't Know JS",
-//         price: "45"
-//     },
-//     a1: undefined,
-//     a2: null,
-//     a3: [1,2,3,4]
-// }
-    //第一步 第二步
-    // function deepClone(source) {
-    //   // 传入值必须为对象
-    //   if(typeof source !=="object" || source == null) {
-    //     return source
-    //   }
-    //   // var target = {}
-    //   // 区分数组
-    //   var target = Array.isArray(source)?[] :{};
-    //   for(var key in source) {
-    //     if(Object.prototype.hasOwnProperty.call(source,key)) {
-    //       // 注意点 typeof null == "object" 因此要判断source[key]不为null
-    //       if(typeof source[key]==="object"&& source[key] !==null){
-    //         target[key] = deepClone(source[key])
-    //       } else {
-    //         target[key]=source[key]
-    //       }
-    //     }
-    //   }
-    //   return target
-    // }
-    // // Maximum call stack size exceeded 栈溢出
-    // var a = {
-    //   name :"18",
-    // }
-    // var b = {
-    //   name:"22",
-    // }
-    // a.obj = b;
-    // b.n = a;
-    // var dd = deepClone(a);
-    // console.log(dd,"dd")
+    <script>
+      //     var a = {
+      //     name: "muyiy",
+      //     book: {
+      //         title: "You Don't Know JS",
+      //         price: "45"
+      //     },
+      //     a1: undefined,
+      //     a2: null,
+      //     a3: [1,2,3,4]
+      // }
+      //第一步 第二步
+      // function deepClone(source) {
+      //   // 传入值必须为对象
+      //   if(typeof source !=="object" || source == null) {
+      //     return source
+      //   }
+      //   // var target = {}
+      //   // 区分数组
+      //   var target = Array.isArray(source)?[] :{};
+      //   for(var key in source) {
+      //     if(Object.prototype.hasOwnProperty.call(source,key)) {
+      //       // 注意点 typeof null == "object" 因此要判断source[key]不为null
+      //       if(typeof source[key]==="object"&& source[key] !==null){
+      //         target[key] = deepClone(source[key])
+      //       } else {
+      //         target[key]=source[key]
+      //       }
+      //     }
+      //   }
+      //   return target
+      // }
+      // // Maximum call stack size exceeded 栈溢出
+      // var a = {
+      //   name :"18",
+      // }
+      // var b = {
+      //   name:"22",
+      // }
+      // a.obj = b;
+      // b.n = a;
+      // var dd = deepClone(a);
+      // console.log(dd,"dd")
 
+      // 第三步 数组方法
+      // function deepClone(source,arr=[]) {
+      //   // 传入值必须为对象
+      //   if(typeof source !=="object" || source == null) {
+      //     return source
+      //   }
+      //   let uniqData = find(arr,source)
+      //   if(uniqData) {
+      //     return uniqData.target
+      //   }
+      //   // 区分数组
+      //   var target = Array.isArray(source)?[] :{};
+      //   arr.push({
+      //     source,
+      //     target,
+      //   })
+      //   for(var key in source) {
+      //     if(Object.prototype.hasOwnProperty.call(source,key)) {
+      //       // 注意点 typeof null == "object" 因此要判断source[key]不为null
+      //       if(typeof source[key]==="object"&& source[key] !==null){
+      //         target[key] = deepClone(source[key],arr)
+      //       } else {
+      //         target[key]=source[key]
+      //       }
+      //     }
+      //   }
+      //   return target
+      // }
 
-    
+      // function find(arr,item) {
+      //   for(var i = 0;i<arr.length;i++) {
+      //     if(arr[i].source==item) {
+      //       return arr[i]
+      //     }
+      //   }
+      //   return null
+      // }
 
-    // 第三步 数组方法
-    // function deepClone(source,arr=[]) {
-    //   // 传入值必须为对象
-    //   if(typeof source !=="object" || source == null) {
-    //     return source
-    //   }
-    //   let uniqData = find(arr,source)
-    //   if(uniqData) {
-    //     return uniqData.target
-    //   }
-    //   // 区分数组
-    //   var target = Array.isArray(source)?[] :{};
-    //   arr.push({
-    //     source,
-    //     target,
-    //   })
-    //   for(var key in source) {
-    //     if(Object.prototype.hasOwnProperty.call(source,key)) {
-    //       // 注意点 typeof null == "object" 因此要判断source[key]不为null
-    //       if(typeof source[key]==="object"&& source[key] !==null){
-    //         target[key] = deepClone(source[key],arr)
-    //       } else {
-    //         target[key]=source[key]
-    //       }
-    //     }
-    //   }
-    //   return target
-    // }
+      //第三步 哈希表方法
+      //   function deepClone(source, hash = new WeakMap()) {
+      //     // 传入值必须为对象
+      //     if (typeof source !== "object" || source == null) {
+      //       return source;
+      //     }
+      //     if (hash.has(source)) {
+      //       return hash.get(source);
+      //     }
+      //     // 区分数组
+      //     var target = Array.isArray(source) ? [] : {};
+      //     hash.set(source, target);
+      //     for (var key in source) {
+      //       if (Object.prototype.hasOwnProperty.call(source, key)) {
+      //         // 注意点 typeof null == "object" 因此要判断source[key]不为null
+      //         if (typeof source[key] === "object" && source[key] !== null) {
+      //           target[key] = deepClone(source[key], hash);
+      //         } else {
+      //           target[key] = source[key];
+      //         }
+      //       }
+      //     }
+      //     return target;
+      //   }
+      // 解决引用丢失问题
+      // var obj = {
+      //   name:"222"
+      // }
+      // var a = {
+      //    b : obj,
+      //    c:obj,
+      // }
+      //   var dd = deepClone(a);
+      //   console.log(dd, "dd", dd.b === dd.c);
+    </script>
 
-    // function find(arr,item) {
-    //   for(var i = 0;i<arr.length;i++) {
-    //     if(arr[i].source==item) {
-    //       return arr[i]
-    //     }
-    //   }
-    //   return null
-    // }
+    <script>
+      // 对象浅拷贝
+      // function lightClone(origin){
+      //     if(typeof origin!=="object"||origin===null) {
+      //         throw new Error(origin +'is not a object')
+      //     }
+      //     let target = {}
+      //     for(let key in origin){
+      //         if(Object.prototype.hasOwnProperty.call(origin,key)){
+      //             target[key]=origin[key]
+      //         }
+      //     }
+      //     return target
+      // }
 
+      // 对象的深拷贝
+      // 一、简单实现
+      // 二、拷贝数组
+      // 三、处理循环引用 JSON无法解决循环引用的问题
+      // 四、引用丢失(处理循环引用时可以解决此问题)
+      // 五、拷贝symbol值 symbol属性不能被in循环
+      // 六、拷贝不可枚举属性 getOwnPropertyName
+      // 七、解决循环爆栈的问题
+      // function isObject(obj) {
+      //     return typeof obj ==="object" && obj !==null
+      // }
+      // function deepClone(origin,hashMap = new WeakMap()) {
+      //     if(!isObject(origin)){
+      //        return origin
+      //     }
+      //     // 处理循环引用
+      //     if(hashMap.has(origin)){
+      //         return hashMap.get(origin)
+      //     }
+      //     //考虑数组
+      //     //判断数组 Object.prototype.toString.call(origin[key])==="[object Array]"
+      //     let target = Array.isArray(origin)?[]:{}
+      //     hashMap.set(origin,target)
+      //     for(key in origin) {
+      //         if(Object.prototype.hasOwnProperty.call(origin, key)) {
+      //             if(isObject(origin[key])){
+      //               target[key]=deepClone(origin[key], hashMap)
+      //             } else {
+      //               target[key] = origin[key]
+      //             }
+      //         }
+      //     }
+      // }
 
-    //第三步 哈希表方法
-    function deepClone(source,hash=new WeakMap()) {
-      // 传入值必须为对象
-      if(typeof source !=="object" || source == null) {
-        return source
-      }
-      if(hash.has(source)) {
-        return hash.get(source)
-      }
-      // 区分数组
-      var target = Array.isArray(source)?[] :{};
-      hash.set(source,target )
-      for(var key in source) {
-        if(Object.prototype.hasOwnProperty.call(source,key)) {
-          // 注意点 typeof null == "object" 因此要判断source[key]不为null
-          if(typeof source[key]==="object"&& source[key] !==null){
-            target[key] = deepClone(source[key],hash)
-          } else {
-            target[key]=source[key]
-          }
-        }
-      }
-      return target
-    }
-    // 解决引用丢失问题
-    // var obj = {
-    //   name:"222"
-    // }
-    // var a = {
-    //    b : obj,
-    //    c:obj,
-    // }
-    var dd = deepClone(a);
-    console.log(dd,"dd",dd.b===dd.c)
+      //处理symbol值的情况
+      // function isObject(obj) {
+      //     return typeof obj ==="object"&&obj!==null;
+      // }
+      // function deepClone(origin,hashMap=new WeakMap()){
+      //     if(!isObject(origin)){
+      //         return origin
+      //     }
+      //     if(hashMap.has(origin)){
+      //         return hashMap.get(origin)
+      //     }
+      //     var target = Array.isArray(origin) ?[]:{}
+      //     hashMap.set(origin,target)
 
+      //     //处理symbol值
+      //     const symbolArr = Object.getOwnPropertySymbols(origin);
+      //     symbolArr.forEach(function(item){
+      //          if(isObject(origin[item])){
+      //            target[item] = deepClone(origin[item],hashMap)
+      //          } else {
+      //            target[item] = origin[item]
+      //          }
+      //     })
 
+      //     for(let key in origin) {
+      //         if(Object.prototype.hasOwnProperty.call(origin,key)) {
+      //           if(isObject(origin[key])) {
+      //            target[key] = deepClone(origin[key],hashMap)
+      //           } else {
+      //             target[key] = origin[key]
+      //           }
+      //         }
+      //     }
+      //    return target
+      // }
 
+      // 拷贝symbol值和不可枚举属性 用Reflect.Ownkeys() == Object.getOwnPropertyNmaes()+Object.getOwnPropertySymbols()
+      // function isObject(obj) {
+      //     return typeof obj ==="object"&&obj!==null;
+      // }
+      // function deepClone(origin,hashMap=new WeakMap()){
+      //     if(!isObject(origin)){
+      //         return origin
+      //     }
+      //     if(hashMap.has(origin)){
+      //         return hashMap.get(origin)
+      //     }
+      //     var target = Array.isArray(origin) ?[]:{}
+      //     hashMap.set(origin,target)
 
-  </script>
+      //     //处理symbol值
+      //     const symbolArr = Reflect.ownKeys(origin);
+      //     symbolArr.forEach(function(item){
+      //          if(isObject(origin[item])){
+      //            target[item] = deepClone(origin[item],hashMap)
+      //          } else {
+      //            target[item] = origin[item]
+      //          }
+      //     })
 
+      //     return target
 
+      //     // for(let key in origin) {
+      //     //     if(Object.prototype.hasOwnProperty.call(origin,key)) {
+      //     //       if(isObject(origin[key])) {
+      //     //        target[key] = deepClone(origin[key],hashMap)
+      //     //       } else {
+      //     //         target[key] = origin[key]
+      //     //       }
+      //     //     }
+      //     // }
+      // }
 
-
-
-
-<script>
-    // 对象浅拷贝
-        // function lightClone(origin){
-        //     if(typeof origin!=="object"||origin===null) {
-        //         throw new Error(origin +'is not a object')
-        //     }
-        //     let target = {}
-        //     for(let key in origin){
-        //         if(Object.prototype.hasOwnProperty.call(origin,key)){
-        //             target[key]=origin[key]
-        //         }
-        //     }
-        //     return target
-        // }
-
-
-        // 对象的深拷贝
-        // 一、简单实现
-        // 二、拷贝数组
-        // 三、处理循环引用 JSON无法解决循环引用的问题
-        // 四、引用丢失(处理循环引用时可以解决此问题)
-        // 五、拷贝symbol值 symbol属性不能被in循环
-        // 六、拷贝不可枚举属性 getOwnPropertyName
-        // 七、解决循环爆栈的问题
-        // function isObject(obj) {
-        //     return typeof obj ==="object" && obj !==null
-        // }
-        // function deepClone(origin,hashMap = new WeakMap()) {
-        //     if(!isObject(origin)){
-        //        return origin
-        //     }
-        //     // 处理循环引用
-        //     if(hashMap.has(origin)){
-        //         return hashMap.get(origin)
-        //     }
-        //     //考虑数组
-        //     //判断数组 Object.prototype.toString.call(origin[key])==="[object Array]"
-        //     let target = Array.isArray(origin)?[]:{}
-        //     hashMap.set(origin,target)
-        //     for(key in origin) {
-        //         if(Object.prototype.hasOwnProperty.call(origin, key)) {
-        //             if(isObject(origin[key])){
-        //               target[key]=deepClone(origin[key], hashMap)
-        //             } else {
-        //               target[key] = origin[key]
-        //             }
-        //         }
-        //     }
-        // }
-
-        //处理symbol值的情况
-        // function isObject(obj) {
-        //     return typeof obj ==="object"&&obj!==null;
-        // }
-        // function deepClone(origin,hashMap=new WeakMap()){
-        //     if(!isObject(origin)){
-        //         return origin
-        //     }
-        //     if(hashMap.has(origin)){
-        //         return hashMap.get(origin)
-        //     }
-        //     var target = Array.isArray(origin) ?[]:{}
-        //     hashMap.set(origin,target)
-            
-        //     //处理symbol值
-        //     const symbolArr = Object.getOwnPropertySymbols(origin);
-        //     symbolArr.forEach(function(item){
-        //          if(isObject(origin[item])){
-        //            target[item] = deepClone(origin[item],hashMap)
-        //          } else {
-        //            target[item] = origin[item]
-        //          }
-        //     })
-
-        //     for(let key in origin) {
-        //         if(Object.prototype.hasOwnProperty.call(origin,key)) {
-        //           if(isObject(origin[key])) {
-        //            target[key] = deepClone(origin[key],hashMap)
-        //           } else {
-        //             target[key] = origin[key]
-        //           }
-        //         }
-        //     }
-        //    return target
-        // }
-
-
-        // 拷贝symbol值和不可枚举属性 用Reflect.Ownkeys() == Object.getOwnPropertyNmaes()+Object.getOwnPropertySymbols()
-        // function isObject(obj) {
-        //     return typeof obj ==="object"&&obj!==null;
-        // }
-        // function deepClone(origin,hashMap=new WeakMap()){
-        //     if(!isObject(origin)){
-        //         return origin
-        //     }
-        //     if(hashMap.has(origin)){
-        //         return hashMap.get(origin)
-        //     }
-        //     var target = Array.isArray(origin) ?[]:{}
-        //     hashMap.set(origin,target)
-            
-        //     //处理symbol值
-        //     const symbolArr = Reflect.ownKeys(origin);
-        //     symbolArr.forEach(function(item){
-        //          if(isObject(origin[item])){
-        //            target[item] = deepClone(origin[item],hashMap)
-        //          } else {
-        //            target[item] = origin[item]
-        //          }
-        //     })
-
-        //     return target
-
-        //     // for(let key in origin) {
-        //     //     if(Object.prototype.hasOwnProperty.call(origin,key)) {
-        //     //       if(isObject(origin[key])) {
-        //     //        target[key] = deepClone(origin[key],hashMap)
-        //     //       } else {
-        //     //         target[key] = origin[key]
-        //     //       }
-        //     //     }
-        //     // }
-        // }
-
-        //考虑 处理日期对象 Date 正则 函数 包括继承属性
-        const isComplexDataType = obj => (typeof obj === 'object' || typeof obj === 'function') && (obj !== null)
-        const deepClone = function (obj, hash = new WeakMap()) {
-        if (obj.constructor === Date) 
-        return new Date(obj)       // 日期对象直接返回一个新的日期对象
-        if (obj.constructor === RegExp)
-        return new RegExp(obj)     //正则对象直接返回一个新的正则对象
+      //考虑 处理日期对象 Date 正则 函数 包括继承属性
+      const isComplexDataType = (obj) =>
+        (typeof obj === "object" || typeof obj === "function") && obj !== null;
+      const deepClone = function (obj, hash = new WeakMap()) {
+        if (obj.constructor === Date) return new Date(obj); // 日期对象直接返回一个新的日期对象
+        if (obj.constructor === RegExp) return new RegExp(obj); //正则对象直接返回一个新的正则对象
         //如果循环引用了就用 weakMap 来解决
-        if (hash.has(obj)) return hash.get(obj)
-        let allDesc = Object.getOwnPropertyDescriptors(obj)
+        if (hash.has(obj)) return hash.get(obj);
+        let allDesc = Object.getOwnPropertyDescriptors(obj);
         //遍历传入参数所有键的特性
-        let cloneObj = Object.create(Object.getPrototypeOf(obj), allDesc)
+        let cloneObj = Object.create(Object.getPrototypeOf(obj), allDesc);
         //继承原型链
-        hash.set(obj, cloneObj)
-        for (let key of Reflect.ownKeys(obj)) { 
-            cloneObj[key] = (isComplexDataType(obj[key]) && typeof obj[key] !== 'function') ? deepClone(obj[key], hash) : obj[key]
+        hash.set(obj, cloneObj);
+        for (let key of Reflect.ownKeys(obj)) {
+          cloneObj[key] =
+            isComplexDataType(obj[key]) && typeof obj[key] !== "function"
+              ? deepClone(obj[key], hash)
+              : obj[key];
         }
-        return cloneObj
-        }
+        return cloneObj;
+      };
 
+      function Obj() {
+        this.func = function () {
+          alert(1);
+        };
+        this.obj = { a: 1 };
+        this.arr = [1, 2, 3];
+        this.und = undefined;
+        this.reg = /123/;
+        this.date = new Date(0);
+        this.NaN = NaN;
+        this.infinity = Infinity;
+        this.sym = Symbol(1);
+        this.sss = null;
+      }
+      let obj1 = new Obj();
+      Object.defineProperty(obj1, "innumerable", {
+        enumerable: false,
+        value: "innumerable",
+      });
 
-        function Obj() { 
-            this.func = function () { alert(1) }; 
-            this.obj = {a:1};
-            this.arr = [1,2,3];
-            this.und = undefined; 
-            this.reg = /123/; 
-            this.date = new Date(0); 
-            this.NaN = NaN;
-            this.infinity = Infinity;
-            this.sym = Symbol(1);
-       } 
-        let obj1 = new Obj();
-        Object.defineProperty(obj1,'innumerable',{ 
-        enumerable:false,
-        value:'innumerable'
-        });
+      const aa = deepClone(obj1);
+      console.log(aa, obj1, aa == obj1);
 
-        const aa = deepClone(obj1);
-        console.log(aa,obj1,aa==obj1);
-
-        //但是以上仍然无法解决递归爆栈的情况 因此可以考虑用栈来模拟递归
-</script>
-</body>
+      //但是以上仍然无法解决递归爆栈的情况 因此可以考虑用栈来模拟递归
+    </script>
+  </body>
 </html>

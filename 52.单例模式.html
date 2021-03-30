@@ -2,18 +2,16 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
   </head>
   <body>
     <script>
+      //单例模式 (闭包写法)
       class Singleton {
         constructor() {}
       }
-
-      // 单例模式
-      Singleton.getInstance = function () {
+      Singleton.getInstance = (function () {
         let instance;
         return function () {
           if (!instance) {
@@ -21,7 +19,19 @@
           }
           return instance;
         };
-      };
+      })();
+
+      // 非闭包写法
+
+      function Universe() {
+        if (typeof Universe.instance === "object") {
+          return Universe.instance;
+        }
+
+        Universe.instance = this;
+      }
+
+      var uni = new Universe();
     </script>
   </body>
 </html>

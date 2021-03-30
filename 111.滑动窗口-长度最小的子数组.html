@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // https://mp.weixin.qq.com/s/UrZynlqi4QpyLlLhBPglyg
+      /*题目209.长度最小的子数组
+
+            给定一个含有 n 个正整数的数组和一个正整数 s ，找出该数组中满足其和 ≥ s 的长度最小的 连续 子数组，并返回其长度。如果不存在符合条件的子数组，返回 0。
+
+            示例：
+            输入：s = 7, nums = [2, 3, 1, 2, 4, 3]
+            输出：2
+            解释：子数组[4, 3] 是该条件下的长度最小的子数组。*/
+
+      // 1,窗口就是 满足其和 ≥ s 的长度最小的 连续 子数组。
+      // 2,窗口起始位置:窗口的起始位置设置为数组的起始位置。
+      // 3,窗口结束位置:窗口的结束位置就是遍历数组的指针。
+
+      var minSubArrayLen = function (target, nums) {
+        let i = 0;
+        let j = 0;
+        let minLength = Infinity;
+        let s = 0;
+        for (let j = 0; j < nums.length; j++) {
+          s += nums[j];
+          while (s >= target) {
+            let len = j - i + 1;
+            minLength = minLength < len ? minLength : len;
+            s -= nums[i++];
+          }
+        }
+        return minLength == Infinity ? 0 : minLength;
+      };
+    </script>
+  </body>
+</html>
