@@ -10,6 +10,13 @@
     <script>
       //1,  事件循环 浏览器事件循环和node事件循环之间的区别？
       //1,  事件的捕获和冒泡机制你了解多少？
+      //   var a;
+      function fn() {
+        var a = (b = 1);
+      }
+      fn();
+      console.log(a);
+      console.log(b);
     </script>
   </body>
 </html>

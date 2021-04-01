@@ -1,42 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
+  </head>
+  <body>
     <script>
-        function sss(...args) {
-                return args.reduce(function (pre, cur) {
-                    return pre + cur
-                }, 0)
-            }
+      //使用Promise.race()实现超时处理
+      const resolved = Promise.resolve(42);
+      const rejected = Promise.reject(-1);
 
-              function curried(fn, len) {
-                let length = len || fn.length;
-                return function curry() {
-                    let arg = Array.prototype.slice.call(arguments)
-                    if (arg.length < length) {
-                        console.log(arg,"arg")
-                        return function () {
-                           return curry.apply(null, arg.concat(Array.prototype.slice.call(arguments)))
-                        }
-                    } else {
-                        return fn.apply(this, arg)
-                    }
-                }
-            }
-            
+      const allSettledPromise = Promise.allSettled([resolved, rejected]);
 
-            let add = curried(sss, 3)
-         
-            var aaaaa = add(1)(2)(3)
-            console.log(aaaaa,"aaaa")
-       
-            // (3)
-            // console.log(add(1)(2),'dd') 
+      allSettledPromise.then(function (results) {
+        console.log(results);
+      });
     </script>
-</body>
+  </body>
 </html>
