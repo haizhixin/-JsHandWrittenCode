@@ -25,8 +25,7 @@
         // 函数柯理化 参数不固定(绑定上下文)
         function currying(fn, len) {
             len = len || fn.length;
-            return function () {
-                var args = Array.prototype.slice.call(arguments);
+            return function (...args) {
                 if (args.length >= len) {
                     return fn.apply(this, args)
                 } else {
@@ -35,20 +34,34 @@
             }
         }
 
+        // const curry = (fn, length) => {
+        //     length = length || fn.length
+        //     return function (...args) {
+        //         if (args.length < length) {
+        //             return curry(fn.bind(this, ...args), length - args.length)
+        //         }
+        //         else {
+        //             return fn.call(this, ...args)
+        //         }
+        //     }
+        // }
+
+
+
         // ES6实现函数柯里化
-        const currying = (fn) => (judge=(...args)=> args.length>=fn.length ?fn(...args):(...arr)=>judge(...args,...arr))
+        const currying = (fn) => (judge = (...args) => args.length >= fn.length ? fn(...args) : (...arr) => judge(...args, ...arr))
 
         function add() {
-        var args = Array.prototype.slice.call(arguments)
-        return args.reduce(function(acc,cur){
-            return acc + cur
-        },0)
+            var args = Array.prototype.slice.call(arguments)
+            return args.reduce(function (acc, cur) {
+                return acc + cur
+            }, 0)
         }
 
-   var aa = currying(add)
-   console.log(bb, "bb")
-   var bb = aa(1)(2)
-   
+        var aa = currying(add)
+        console.log(bb, "bb")
+        var bb = aa(1)(2)
+
     </script>
 </body>
 

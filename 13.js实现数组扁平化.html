@@ -1,71 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
 </head>
+
 <body>
-   
-   <script>
+
+    <script>
         // 原生js如何实现数组扁平化的
 
-        // var arr = [ [1, 2, 2], [3, 4, 5, 5], [6, 7, 8, 9, [11, 12, [12, 13, [14] ] ] ], 10];
-        // 方法一：普通的递归实
-        function flatten(arr) {
-        let result = [];
-        for(let i = 0; i < arr.length; i++) {
-            if(Array.isArray(arr[i])) {
-            result = result.concat(flatten(arr[i]));
-            } else {
-            result.push(arr[i]);
-            }
-        }
-        return result;
-        }
-        flatten(a);  //  [1, 2, 3, 4，5]
+        // var arr = [[1, 2, 2], [3, 4, 5, 5], [6, 7, 8, 9, [11, 12, [12, 13, [14]]]], 10];
+        // 方法一：普通的递归实现
+        // function flatten(arr) {
+        //     let result = [];
+        //     for (let i = 0; i < arr.length; i++) {
+        //         if (Array.isArray(arr[i])) {
+        //             result = result.concat(flatten(arr[i]));
+        //         } else {
+        //             result.push(arr[i]);
+        //         }
+        //     }
+        //     return result;
+        // }
+        // console.log(flatten(arr));  //  [1, 2, 3, 4，5]
 
-       // 方法二：利用 reduce 函数迭代
-        var arr = [1, [2, [3, 4]]];
-        function flatten(arr) {
-            return arr.reduce(function(prev, next){
-                return prev.concat(Array.isArray(next) ? flatten(next) : next)
-            }, [])
-        }
-        console.log(flatten(arr));//  [1, 2, 3, 4，5]
+        // // 方法二：利用 reduce 函数迭代
+        // var arr = [1, [2, [3, 4]]];
+        // function flatten(arr) {
+        //     return arr.reduce(function (prev, next) {
+        //         return prev.concat(Array.isArray(next) ? flatten(next) : next)
+        //     }, [])
+        // }
+        // console.log(flatten(arr));//  [1, 2, 3, 4，5]
 
-         //三,利用递归
-        // 方法三：扩展运算符实现
-        var arr = [1, [2, [3, 4]]];
-        function flatten(arr) {
-            while (arr.some(item => Array.isArray(item))) {
-                arr = [].concat(...arr);
-            }
-            return arr;
-        }
-        console.log(flatten(arr)); //  [1, 2, 3, 4，5]
+        // //三,利用递归
+        // // 方法三：扩展运算符实现
+        // var arr = [1, [2, [3, 4]]];
+        // function flatten(arr) {
+        //     while (arr.some(item => Array.isArray(item))) {
+        //         arr = [].concat(...arr);
+        //     }
+        //     return arr;
+        // }
+        // console.log(flatten(arr)); //  [1, 2, 3, 4，5]
 
-        // 方法四：split 和 toString 共同处理
-        function flatten(arr) {
-            return arr.toString().split(',');
-        }
-        console.log(flatten(arr)); //  [1, 2, 3, 4，5]
+        // // 方法四：split 和 toString 共同处理
+        // function flatten(arr) {
+        //     return arr.toString().split(',');
+        // }
+        // console.log(flatten(arr)); //  [1, 2, 3, 4，5]
 
-        // 调用 ES6 中的 flat
-function flatten(arr) {
-  return arr.flat(Infinity);
-}
-console.log(flatten(arr)); //  [1, 2, 3, 4，5]
+        // // 调用 ES6 中的 flat
+        // function flatten(arr) {
+        //     return arr.flat(Infinity);
+        // }
+        // console.log(flatten(arr)); //  [1, 2, 3, 4，5]
 
-// 方法 6方法六：正则和 JSON 方法共同处理
+        // // 方法 6方法六：正则和 JSON 方法共同处理
 
-function flatten(arr) {
-  let str = JSON.stringify(arr);
-  str = str.replace(/(\[|\])/g, '');
-  str = '[' + str + ']';
-  return JSON.parse(str); 
-}
-console.log(flatten(arr)); //  [1, 2, 3, 4，5]
+        // function flatten(arr) {
+        //     let str = JSON.stringify(arr);
+        //     str = str.replace(/(\[|\])/g, '');
+        //     str = '[' + str + ']';
+        //     return JSON.parse(str);
+        // }
+        // console.log(flatten(arr)); //  [1, 2, 3, 4，5]
 
         //已知如下数组：var arr = [ [1, 2, 2], [3, 4, 5, 5], [6, 7, 8, 9, [11, 12, [12, 13, [14] ] ] ], 10];
         //编写一个程序将数组扁平化去并除其中重复部分数据，最终得到一个升序且不重复的数组
@@ -75,25 +77,26 @@ console.log(flatten(arr)); //  [1, 2, 3, 4，5]
         const unique = (arr) => Array.from(new Set(arr));
         // 数组排序
         const sortArr = (arr) => {
-          arr.sort(function(a,b){
-            return a -b
-          })  
-          return arr
+            arr.sort(function (a, b) {
+                return a - b
+            })
+            return arr
         }
         // 实现一个compose函数
         function compose() {
-          let args = [].slice.call(arguments);
-          return function (arr) {
-             return args.reduce((last,cur)=>{
-              return cur(last) 
-             },arr)
-          }
+            let args = [].slice.call(arguments);
+            return function (arr) {
+                return args.reduce((last, cur) => {
+                    return cur(last)
+                }, arr)
+            }
         }
-        var fn = compose(flatten,unique,sortArr)
-        var arr = [[1, 2, 2], [3, 4, 5, 5], [6, 7, 8, 9, [11, 12, [12, 13, [14] ] ] ], 10];
+        var fn = compose(flatten, unique, sortArr)
+        var arr = [[1, 2, 2], [3, 4, 5, 5], [6, 7, 8, 9, [11, 12, [12, 13, [14]]]], 10];
         const result = fn(arr);
-        console.log(result,"result")
-   </script>
-  
+        console.log(result, "result")
+    </script>
+
 </body>
+
 </html>

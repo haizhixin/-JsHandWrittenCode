@@ -6,31 +6,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+<style>
+    html {
+        width: 500px;
+        height: 600px;
+        border: 1px solid red;
+    }
+
+    body {
+        width: 400px;
+        height: 500px;
+        border: 1px solid blue;
+    }
+</style>
 
 <body>
     <script>
-
-        function strSort(str) {
-            if (str.length === 1) {
-                return str
-            }
-            let arr = str.split("")
-            arr.sort(function (a, b) {
-                return a - b
-            })
-            console.log(arr, "arr")
-            // for (let i = 0; i < arr.length; i++) {
-            //     if (arr[i] !== arr[i + 1]) {
-            //         arr.splice(i, 0, ",")
-            //         i++
-            //     }
-            // }
-            return arr.join()
-        }
-        console.log(strSort("abaabccc"))
-
-
-
+        setTimeout(() => {
+            location.replace("http://www/baidu.com")
+        }, 1000)
     </script>
 </body>
 

@@ -1,38 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <!-- object.Create创建一个对象为其指定其原型 -->
     <script>
-     Object.myCreate = function(proto,propertyObject =undefined) {
-         if(typeof proto !=="object") {
-               throw new TypeError(proto + "is not a object")
-         }
-         if(propertyObject ===null || typeof propertyObject !=="object") {
-             throw new TypeError(propertyObject +'is not a Object') 
-         } else {
-             function F() {   
-             }
-             F.prototype = proto
-             var obj = new F();
-             if(proto) {
-                 obj.constructor = F
-             }
-             if(propertyObject !==undefined) {
-                 Object.defineProperty(obj,propertyObject)
-             }
-             return obj
-         } 
-     }
+        Object.myCreate = function (proto, propertyObject = undefined) {
+            if (typeof proto !== "object") {
+                throw new TypeError(proto + "is not a object")
+            }
+            if (propertyObject === null || typeof propertyObject !== "object") {
+                throw new TypeError(propertyObject + 'is not a Object')
+            } else {
+                function F() {
+                }
+                F.prototype = proto
+                var obj = new F();
+                if (proto) {
+                    obj.constructor = F
+                }
+                if (propertyObject !== undefined) {
+                    if (typeof obj !== "object" || obj === null) {
+                        throw new TypeError()
+                    }
+                    Object.defineProperties(obj, propertyObject)
+                }
+                return obj
+            }
+        }
 
 
 
 
-    
+
     </script>
 </body>
+
 </html>

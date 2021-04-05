@@ -1,54 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <script>
-        Function.prototype.myApply = Function.prototype.apply || function() {
-           if(typeof this !== "function") {
-               throw new TypeError(this+"is not a function")
-           }
-          
-           var context  = arguments[0]
-           context = context ? Object(context) : window
-           context.fn = this;
-           var args = []
-           for(var i = 1;i<arguments.length;i++) {
-               args.push(arguments[i])
-           }
-           var result = context.fn(args)
-           delete context.fn
-           return result
-       }
+        Function.prototype.myApply = Function.prototype.apply || function () {
+            if (typeof this !== "function") {
+                throw new TypeError(this + "is not a function")
+            }
+            var context = arguments[0]
+            context = context ? Object(context) : window
+            context.fn = this;
+            var args = []
+            for (var i = 1; i < arguments.length; i++) {
+                args.push(arguments[i])
+            }
+            var result = context.fn(args)
+            delete context.fn
+            return result
+        }
 
-        
+
+
 
         // ES6写法
-        Function.prototype.apply2 = function(context,args) {
-            if(typeof this !=="function") {
+        Function.prototype.apply2 = function (context, args) {
+            if (typeof this !== "function") {
                 throw new TypeError("Type Error")
             }
-            context = context? Object(context) :window;
+            context = context ? Object(context) : window;
             context.fn = this;
             let result;
-            if(!args) {
-              result = context.fn()
+            if (!args) {
+                result = context.fn()
             } else {
-              result = context.fn(...args)
+                result = context.fn(...args)
             }
             delete context.fn
             return result
         }
 
 
-    
- 
+
+
 
 
 
     </script>
 </body>
+
 </html>

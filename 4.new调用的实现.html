@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <script>
         // function Person() {
@@ -19,52 +21,29 @@
         // 4、如果函数没有返回其他对象，那么new表达式中的函数调用会自动返回这个新对象。
         function newOperator() {
             const Ctor = Array.prototype.shift.call(arguments);
-            if(typeof Ctor !== "function") {
-                throw new Error('Type Error')
-                // throw new TypeError('Type Error');
+            if (typeof Ctor !== "function") {
+                throw new TypeError('Type Error');
             }
             var obj = Object.create(Ctor.prototype);
-            var ret = Ctor.call(obj,arguments);
+            var ret = Ctor.apply(obj, arguments);
             // 如果构造函数中返回的有对象 优先返回该对象 否则返回实例对象
             return ret instanceof Object ? ret : obj;
+            // return (typeof ret === 'object' && ret != null) ? ret : obj;
         }
-        newOperator(Ctor,...arg)
+        // function objectCreate() {
+        //     var Ctor = [].shift.call(arguments)
+        //     if (typeof Ctor !== "function") {
+        //         throw newTypeError("Type Error")
+        //     }
 
-
-
-
-
-
-
-
-    function objectCreate() {
-       var Ctor = [].shift.call(arguments)
-       if(typeof Ctor !== "function") {
-           throw newTypeError("Type Error")
-       }
-       
-        // var obj = {};
-        // obj._proto_ = Ctor.prototype;
-        // 创建一个空对象并关联到函数的原型
-        var obj = Object.create(Ctor.prototype)
-        // 绑定this 继承构造函数上的属性
-        var ret = Ctor.apply(obj,arguments)
-        return ret instanceof Object ? ret : obj
-    }
-
-
-    function _new(ctor, ...args) {
-    if(typeof ctor !== 'function') {
-      throw 'ctor must be a function';
-    }
-    let obj = new Object();
-    obj.__proto__ = Object.create(ctor.prototype);
-    let res = ctor.apply(obj,  [...args]);
-
-    let isObject = typeof res === 'object' && typeof res !== null;
-    let isFunction = typeof res === 'function';
-    return isObject || isFunction ? res : obj;
-};
+        //     // var obj = {};
+        //     // obj._proto_ = Ctor.prototype;
+        //     // 创建一个空对象并关联到函数的原型
+        //     var obj = Object.create(Ctor.prototype)
+        //     // 绑定this 继承构造函数上的属性
+        //     var ret = Ctor.apply(obj, arguments)
+        //     return ret instanceof Object ? ret : obj
+        // }
 
 
 
@@ -82,15 +61,8 @@
 
 
 
-     
 
 
-
-
-
-
-
-     
 
 
 
@@ -98,4 +70,5 @@
 
     </script>
 </body>
+
 </html>

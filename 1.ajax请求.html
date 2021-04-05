@@ -9,6 +9,7 @@
 </head>
 <!-- //手写代码大全
 https://mp.weixin.qq.com/s/Qqh1H-2MUyVGoWjgOstQrg -->
+
 <body>
     <script>
         // 1.封装一个创建XHR的方法并兼容各个浏览器
@@ -24,9 +25,9 @@ https://mp.weixin.qq.com/s/Qqh1H-2MUyVGoWjgOstQrg -->
         // 2.生成一个对象
         let xhr = createXHR();
         // 3.监听readyState状态的变化
-        xhr.onreadystatechange = function() {
+        xhr.onreadystatechange = function () {
             if (xhr.readyState == 4) {
-                if (xhr.status >= 200&&xhr.status<300 || xhr.status == 304) {
+                if (xhr.status >= 200 && xhr.status < 300 || xhr.status == 304) {
                     console.log(xhr.responseText)
                 } else {
                     console.log("请求失败")
@@ -37,12 +38,13 @@ https://mp.weixin.qq.com/s/Qqh1H-2MUyVGoWjgOstQrg -->
         xhr.open("GET", url, true)
         // 5.设置请求头信息
         xhr.setRequestHeader("xxx", "xxxx")
+
         // 6.发送请求
         xhr.send(null)
 
         // 也可以用load代替onreadychangestate
         let xhr = createXHR();
-        xhr.load = function() {
+        xhr.load = function () {
             if (xhr.status == 200 && xhr.status < 300 || xhr.status == "304") {
                 console.log(xhr.responseText)
             } else {
