@@ -1,45 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <script>
-     
-     // call的实现
-    var myCall = Function.prototype.call || function() {
-        if(typeof this!=="function") {
-           throw new TypeError(this+"is not a function")
+
+        // call的实现
+        Function.prototype.myCall = function () {
+            if (typeof this !== "function") {
+                throw new TypeError(this + "is not a function")
+            }
+            var context = arguments[0];
+            // this必选的。在 func 函数运行时使用的 this 值。请注意，this可能不是该方法看到的实际值：如果这个函数处于非严格模式下，则指定为 null 或 undefined 时会自动替换为指向全局对象，原始值会被包装。
+            context = context ? Object(context) : window
+            context.fn = this;
+            var args = []
+            for (var i = 1; i < arguments.length; i++) {
+                args.push('arguments[' + i + ']')
+            }
+            var result = eval('context.fn(' + args + ')')
+            delete context.fn
+            return result
         }
-        var context = arguments[0];
-        context = context?Object(context):window
-        context.fn = this;
-        var args = []
-        for(var i = 1;i<arguments.length;i++){
-         args.push('arguments[' + i + ']')
+
+        var obj = {
+            name: "张亚强"
         }
-        var result = eval('context.fn('+args+')')
-        delete context.fn
-        return result
-    }
-    var myCall = Function.prototype.call || function() {
-        if(typeof this!=='function') {
-            throw new TypeError(this+'is not a function')
+        function aaa() {
+            console.log(this.name)
         }
-        var context = arguments[0]
-        context = context?Object(context):window
-        context.fn = this;
-        var args = []
-        for(var i =1;i<arguments.length;i++) {
-        args.push(arguments[i])
-        }
-        // let args = [].slice.call(arguments,1);
-        var result = context.fn(...args)
-        delete context.fn
-        return result
-    }
+        aaa.myCall(obj, 1, 2, 3, 4, 5)
+
+
+
+
+
+        // var myCall = Function.prototype.call || function () {
+        //     if (typeof this !== 'function') {
+        //         throw new TypeError(this + 'is not a function')
+        //     }
+        //     var context = arguments[0]
+        //     context = context ? Object(context) : window
+        //     context.fn = this;
+        //     var args = []
+        //     for (var i = 1; i < arguments.length; i++) {
+        //         args.push(arguments[i])
+        //     }
+        //     var result = context.fn(...args)
+        //     delete context.fn
+        //     return result
+        // }
+
+
+
+
+
+
 
 
 
@@ -62,4 +83,5 @@
 
     </script>
 </body>
+
 </html>

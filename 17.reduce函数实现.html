@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <script>
         // 实现reduce函数
         // function reduce2(fn,initial) {
         //     return function () {
         //         let n;
-        //         var args = Array.prototype.slice(arguments);
+        //         var args = Array.prototype.slice.call(arguments);
         //         if(initial == undefined) {
         //             n = args[0];
         //             for(var j =1;j<args.length;j++) {
@@ -39,53 +41,63 @@
             initialValue	可选。传递给函数的初始值 
             如果不传初始值 会把数组第一个元素作为初始值
 
-            空函数不会执行回调函数
+            空数组不会执行回调函数
         */
 
         // 最终版
-        function reduce1(array,fn,initialValue) {
+        function reduce1(array, fn, initialValue) {
+            if (!Array.isArray(arr)) {
+                throw new TypeError(arr + " is not Array")
+            }
+            if (typeof fn !== "function") {
+                throw new TypeError(fn + "is not function")
+            }
             let accumlator;
-            if(initialValue !=undefined) {
-               accumlator = initialValue;
-               for(var i = 0;i<array.length;i++) {
-                accumlator = fn(accumlator,array[i])
-               }
+            if (initialValue != undefined) {
+                accumlator = initialValue;
+                for (var i = 0; i < array.length; i++) {
+                    accumlator = fn(accumlator, array[i])
+                }
             } else {
                 accumlator = array[0];
-                for(var j = 1;j<array.length;j++) {
-                    accumlator = fn(accumlator,array[j])
+                for (var j = 1; j < array.length; j++) {
+                    accumlator = fn(accumlator, array[j])
                 }
             }
             return accumlator
         }
-    //     function aa(a,b) {
-    //         return a+b
-    //     }
-    //    console.log(reduce1([1, 2, 3], aa, 33))  
+        //     function aa(a,b) {
+        //         return a+b
+        //     }
+        //    console.log(reduce1([1, 2, 3], aa, 33))  
         // reduce函数原理 终极版
-        Array.prototype.reduce2=function(fn,initialValue) {
-            if(this.length===0){
-                if(initialValue === undefined) {
-                   throw new Error("Reduce of empty array with no initial value")
+        Array.prototype.reduce2 = function (fn, initialValue) {
+            if (typeof fn !== "function") {
+                throw new TypeError(fn + "is not function")
+            }
+            if (this.length === 0) {
+                if (initialValue === undefined) {
+                    throw new Error("Reduce of empty array with no initial value")
                 } else {
                     return initialValue
                 }
             } else {
                 let pre = initialValue ? initialValue : this[0];
-                let start = initialValue?0:1;
-                for(let i = start;i<this.length;i++) {
-                    pre = fn(pre,this[i])
+                let start = initialValue ? 0 : 1;
+                for (let i = start; i < this.length; i++) {
+                    pre = fn(pre, this[i])
                 }
                 return pre
             }
         }
-        var arr= [1,2,3,4]
-        var res = arr.reduce2(function(a,b){
-            return a +b
-        },1)
+        var arr = [1, 2, 3, 4]
+        var res = arr.reduce2(function (a, b) {
+            return a + b
+        }, 1)
 
         console.log(res)
 
     </script>
 </body>
+
 </html>

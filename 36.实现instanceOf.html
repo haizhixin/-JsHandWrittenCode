@@ -1,62 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<body>
-     
-  <!-- instanceOf检查实例的原型链中是否包含指定构造函数的原型 -->
-  <script>
-    function instance_of(L,R) {
-        const rightVal = R.prototype;
-        
-        while(L){
-            if (L.__proto__=== rightVal) {
-                return true
-            }
-            L = L.__proto__
-        }
-        return false
-    }
 
-    // 另一种实现方式 参考
-    function instancOf(L,R) {
-        if(typeof L !=="object") {
+<body>
+
+    <!-- instanceOf检查实例的原型链中是否包含指定构造函数的原型 -->
+    <script>
+        function instance_of(L, R) {
+            if (typeof L !== "object") {
+                return false
+            }
+            const rightVal = R.prototype;
+
+            while (L) {
+                if (L.__proto__ === rightVal) {
+                    return true
+                }
+                L = L.__proto__
+            }
             return false
         }
-        R = R.prototype;
-        while(true) {
-            if(L===null) {
+
+        // 另一种实现方式 参考
+        function instancOf(L, R) {
+            if (typeof L !== "object") {
                 return false
-            } 
-            if(L.__proto__===R) {
-                return true
             }
-            L = L.__proto__
+            R = R.prototype;
+            while (true) {
+                if (L === null) {
+                    return false
+                }
+                if (L.__proto__ === R) {
+                    return true
+                }
+                L = L.__proto__
+            }
+
         }
 
-    }
-   
 
 
-    // 测试
+        // 测试
         function C() { }
         function D() { }
 
         var o = new C();
 
-      var ss=  instance_of(o, Object); // true
-      console.log(ss,"ss")
+        var ss = instance_of(o, Object); // true
+        console.log(ss, "ss")
         // instance_of(o, D); // false
 
 
-  </script>
+    </script>
 
 
 
 
 
 </body>
+
 </html>

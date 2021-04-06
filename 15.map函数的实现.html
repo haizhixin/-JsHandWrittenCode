@@ -11,19 +11,22 @@
     <script>
         // 手写一个map函数
         var a = [1, 2, 3]
-        Array.prototype.handMap = function(fn, context) {
+        //手写一个map函数
+        Array.prototype.myMap = Array.prototype.map || function (fn, context) {
             if (typeof fn !== "function") {
-                throw new Error("错误")
+                throw new TypeError(fn + "is not a function");
             }
-            var that = this;
-            let arr = []
-            for (let i = 0; i < that.length; i++) {
-                let result = fn.call(context, that[i], i, that)
-                arr.push(result)
+            var arr = [];
+            for (var i = 0; i < this.length; i++) {
+                var result = fn.call(context, this[i], i, this);
+                arr.push(result);
             }
             return arr
         }
-        const temp = a.handMap(function(item, index, arr) {
+
+
+
+        const temp = a.handMap(function (item, index, arr) {
             console.log(item, index, arr)
             item = item * 2
             return item

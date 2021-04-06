@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <script>
         //一, reduce 实现 runPromiseInSequence
@@ -65,8 +67,8 @@
         const pipe = (...args) => {
             return (initValue) => {
                 let result = initValue;
-                for(i = 0;i<args.length;i++) {
-                    result = args[i].call(this,result)
+                for (i = 0; i < args.length; i++) {
+                    result = args[i].call(this, result)
                 }
                 return result
             }
@@ -75,32 +77,33 @@
         const compose = (...args) => {
             return (initValue) => {
                 let result = initValue;
-                let len =args.length;
-                for(let i=len;i>0;i--) {
-                    result = args[i-1].call(this,result)
+                let len = args.length;
+                for (let i = len; i > 0; i--) {
+                    result = args[i - 1].call(this, result)
                 }
                 return result
             }
         }
         // 实现reduce函数
-        const reduce2 = Array.prototype.reduce || function (arr,fn,initValue) {
-            if(!Array.isArray(arr)){
-              throw new TypeError(arr+" is not Array")
+        const reduce2 = Array.prototype.reduce || function (arr, fn, initValue) {
+            if (!Array.isArray(arr)) {
+                throw new TypeError(arr + " is not Array")
             }
-            if(typeof fn !=="function") {
-              throw new TypeError( fn+ "is not function")
+            if (typeof fn !== "function") {
+                throw new TypeError(fn + "is not function")
             }
             let previous;
-            if(!initValue){
-               previous = arr.shift();
+            if (!initValue) {
+                previous = arr.shift();
             }
-            let result = initValue?initValue:previous;
-            for(let i=0;i<arr.length;i++) {
-              result = fn.apply(null,[result,arr[i],i])
+            let result = initValue ? initValue : previous;
+            for (let i = 0; i < arr.length; i++) {
+                result = fn.apply(null, [result, arr[i], i])
             }
             return result
         }
     </script>
-    
+
 </body>
+
 </html>
