@@ -7,25 +7,42 @@
     <title>Document</title>
 </head>
 <style>
-    html {
-        width: 500px;
-        height: 600px;
+    .wp {
         border: 1px solid red;
+        width: 300px;
+        height: 300px;
+        display: table-cell;
+        text-align: center;
+        vertical-align: middle;
+        display: grid;
+
     }
 
-    body {
-        width: 400px;
-        height: 500px;
+    .box {
+        justify-self: center;
+        align-self: center;
+
         border: 1px solid blue;
+        width: 50px;
+        height: 50px;
+        /*position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto; */
+        display: inline-block;
+
+
+
     }
 </style>
 
 <body>
-    <script>
-        setTimeout(() => {
-            location.replace("http://www/baidu.com")
-        }, 1000)
-    </script>
+    <div class="wp">
+        <div class="box fixed-size">text</div>
+    </div>
 </body>
+
 
 </html>

@@ -1,22 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-  </head>
-  <body>
+</head>
+
+<body>
     <script>
-      //1,  事件循环 浏览器事件循环和node事件循环之间的区别？
-      //1,  事件的捕获和冒泡机制你了解多少？
-      //   var a;
-      function fn() {
-        var a = (b = 1);
-      }
-      fn();
-      console.log(a);
-      console.log(b);
+        //1,  事件循环 浏览器事件循环和node事件循环之间的区别？
+        //1,  事件的捕获和冒泡机制你了解多少？
+        //  var a;
+        function fn() {
+            var a = (b = 1);
+        }
+        fn();
+        console.log(a);
+        console.log(b);
+        //   设计一个正确统计SPA应用PV的SDK
+        描述信息
+        // 假设有n个人，标号为1 - n。 从第一个人开始计数，到第k个人则出列，随后从第k + 1个人重新计数，到第k再出列....直至剩下最后一个人。问最后剩下的人的编号？
+        标题：输入电话号码时自动推荐出下一位合法的数字集
+        描述信息
+        公司有10万名员工，每名员工都有一个座机号码。现在要在网页上实现一个“自动补位推荐” 的功能，问如何实现？
+
+        解释：
+        // “自动补位推荐” 功能：有一个输入框，用户每输入一个数字，立马推荐出下一位合法的数字集合。比如只有 5789234、5623786、5633678三个电话号码，当第一位输入5时，立马推荐下一位有效数字集合[7, 6]，如果第二位输入6时，下一位有效数字集合为[2，3]....
+        标题：多叉树广度优先遍历查找
+        描述信息
+        要求：
+        自定义多叉树节点node结构（只需要定义节点结构即可，无需构建树）
+
+        按照广度优先查找符合要求的节点（没有符合要求的节点返回null），比如查找电话号码为 phone的用户信息，调用如下：
+
+        let node = wideTraversal(node, (e) => e.phone === phone)
+
     </script>
-  </body>
+</body>
+
 </html>
